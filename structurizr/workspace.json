@@ -1,0 +1,269 @@
+{
+  "configuration" : { },
+  "description" : "Vores Sep3 Arkitektur diagram",
+  "documentation" : { },
+  "id" : 1,
+  "lastModifiedDate" : "2026-09-23T15:25:24Z",
+  "model" : {
+    "people" : [ {
+      "description" : "en bruger af Sep3 systemet",
+      "id" : "1",
+      "name" : "User",
+      "properties" : {
+        "structurizr.dsl.identifier" : "user"
+      },
+      "relationships" : [ {
+        "description" : "Opdaterer budget",
+        "destinationId" : "3",
+        "id" : "9",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Opdaterer budget",
+        "destinationId" : "2",
+        "id" : "10",
+        "linkedRelationshipId" : "9",
+        "sourceId" : "1"
+      }, {
+        "description" : "Interagerer med",
+        "destinationId" : "5",
+        "id" : "12",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "softwareSystems" : [ {
+      "containers" : [ {
+        "description" : "En Java klient applikation",
+        "documentation" : { },
+        "id" : "3",
+        "name" : "Java Client",
+        "properties" : {
+          "structurizr.dsl.identifier" : "javaClient"
+        },
+        "relationships" : [ {
+          "description" : "Kommunikerer med",
+          "destinationId" : "4",
+          "id" : "11",
+          "sourceId" : "3",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Java"
+      }, {
+        "description" : "En Java database proxy applikation",
+        "documentation" : { },
+        "id" : "4",
+        "name" : "Java Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "javaService"
+        },
+        "relationships" : [ {
+          "description" : "Kommunikerer med",
+          "destinationId" : "6",
+          "id" : "15",
+          "sourceId" : "4",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Kommunikerer med",
+          "destinationId" : "7",
+          "id" : "16",
+          "sourceId" : "4",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Java"
+      }, {
+        "description" : "En Blazor klient applikation",
+        "documentation" : { },
+        "id" : "5",
+        "name" : "Blazor Client",
+        "properties" : {
+          "structurizr.dsl.identifier" : "blazorClient"
+        },
+        "relationships" : [ {
+          "description" : "Kommunikerer med",
+          "destinationId" : "6",
+          "id" : "13",
+          "sourceId" : "5",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Blazor"
+      }, {
+        "description" : "En C# database proxy applikation og SignalR hub",
+        "documentation" : { },
+        "id" : "6",
+        "name" : "C# Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "csharpService"
+        },
+        "relationships" : [ {
+          "description" : "Sender opdateringer til via SignalR",
+          "destinationId" : "5",
+          "id" : "14",
+          "sourceId" : "6",
+          "tags" : "Relationship"
+        }, {
+          "description" : "Kommunikerer med",
+          "destinationId" : "7",
+          "id" : "17",
+          "sourceId" : "6",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "C#"
+      }, {
+        "description" : "En database gateway applikation der bruger efCore",
+        "documentation" : { },
+        "id" : "7",
+        "name" : "Database Gateway",
+        "properties" : {
+          "structurizr.dsl.identifier" : "databaseGateway"
+        },
+        "relationships" : [ {
+          "description" : "Kommunikerer med",
+          "destinationId" : "8",
+          "id" : "18",
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "C#"
+      }, {
+        "description" : "En database der bruges af Sep3 systemet",
+        "documentation" : { },
+        "id" : "8",
+        "name" : "Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "database"
+        },
+        "tags" : "Element,Container,Database",
+        "technology" : "SQL"
+      } ],
+      "description" : "Sep3 systemet",
+      "documentation" : { },
+      "id" : "2",
+      "name" : "Sep3 System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "softwareSystem"
+      },
+      "tags" : "Element,Software System"
+    } ]
+  },
+  "name" : "Sep3 Architecture",
+  "properties" : {
+    "structurizr.inspection.error" : "13",
+    "structurizr.dsl" : "d29ya3NwYWNlICJTZXAzIEFyY2hpdGVjdHVyZSIgIlZvcmVzIFNlcDMgQXJraXRla3R1ciBkaWFncmFtIiB7CiAgICBtb2RlbCB7CiAgICAgICAgdXNlciA9IHBlcnNvbiAiVXNlciIgImVuIGJydWdlciBhZiBTZXAzIHN5c3RlbWV0IgoKICAgICAgICBzb2Z0d2FyZVN5c3RlbSA9IHNvZnR3YXJlU3lzdGVtICJTZXAzIFN5c3RlbSIgIlNlcDMgc3lzdGVtZXQiIHsKICAgICAgICAgICAgamF2YUNsaWVudCA9IGNvbnRhaW5lciAiSmF2YSBDbGllbnQiICJFbiBKYXZhIGtsaWVudCBhcHBsaWthdGlvbiIgIkphdmEiCiAgICAgICAgICAgIGphdmFTZXJ2aWNlID0gY29udGFpbmVyICJKYXZhIFNlcnZpY2UiICJFbiBKYXZhIGRhdGFiYXNlIHByb3h5IGFwcGxpa2F0aW9uIiAiSmF2YSIKICAgICAgICAgICAgYmxhem9yQ2xpZW50ID0gY29udGFpbmVyICJCbGF6b3IgQ2xpZW50IiAiRW4gQmxhem9yIGtsaWVudCBhcHBsaWthdGlvbiIgIkJsYXpvciIKICAgICAgICAgICAgY3NoYXJwU2VydmljZSA9IGNvbnRhaW5lciAiQyMgU2VydmljZSIgIkVuIEMjIGRhdGFiYXNlIHByb3h5IGFwcGxpa2F0aW9uIG9nIFNpZ25hbFIgaHViIiAiQyMiCiAgICAgICAgICAgIGRhdGFiYXNlR2F0ZXdheSA9IGNvbnRhaW5lciAiRGF0YWJhc2UgR2F0ZXdheSIgIkVuIGRhdGFiYXNlIGdhdGV3YXkgYXBwbGlrYXRpb24gZGVyIGJydWdlciBlZkNvcmUiICJDIyIKICAgICAgICAgICAKICAgICAgICAgICAgZGF0YWJhc2UgPSBjb250YWluZXIgIkRhdGFiYXNlIiAiRW4gZGF0YWJhc2UgZGVyIGJydWdlcyBhZiBTZXAzIHN5c3RlbWV0IiAiU1FMIiB7CiAgICAgICAgICAgICAgICB0YWdzICJEYXRhYmFzZSIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgdXNlciAtPiBqYXZhQ2xpZW50ICJPcGRhdGVyZXIgYnVkZ2V0IgogICAgICAgICAgICBqYXZhQ2xpZW50IC0+IGphdmFTZXJ2aWNlICJLb21tdW5pa2VyZXIgbWVkIgogICAgICAgICAgICB1c2VyIC0+IGJsYXpvckNsaWVudCAiSW50ZXJhZ2VyZXIgbWVkIgogICAgICAgICAgICBibGF6b3JDbGllbnQgLT4gY3NoYXJwU2VydmljZSAiS29tbXVuaWtlcmVyIG1lZCIKICAgICAgICAgICAgY3NoYXJwU2VydmljZSAtPiBibGF6b3JDbGllbnQgIlNlbmRlciBvcGRhdGVyaW5nZXIgdGlsIHZpYSBTaWduYWxSIgogICAgICAgICAgICBqYXZhU2VydmljZSAtPiBjc2hhcnBTZXJ2aWNlICJLb21tdW5pa2VyZXIgbWVkIgogICAgICAgICAgICBqYXZhU2VydmljZSAtPiBkYXRhYmFzZUdhdGV3YXkgIktvbW11bmlrZXJlciBtZWQiCiAgICAgICAgICAgIGNzaGFycFNlcnZpY2UgLT4gZGF0YWJhc2VHYXRld2F5ICJLb21tdW5pa2VyZXIgbWVkIgogICAgICAgICAgICBkYXRhYmFzZUdhdGV3YXkgLT4gZGF0YWJhc2UgIktvbW11bmlrZXJlciBtZWQiCiAgICAgICAgfQogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICBzeXN0ZW1Db250ZXh0IHNvZnR3YXJlU3lzdGVtICJTZXAzLVN5c3RlbSIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dAogICAgICAgIH0KCiAgICAgICAgY29udGFpbmVyIHNvZnR3YXJlU3lzdGVtICJTZXAzLVN5c3RlbS1Db250YWluZXJzIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0CiAgICAgICAgfQoKICAgICAgICBzdHlsZXMgewogICAgICAgICAgICBlbGVtZW50ICJEYXRhYmFzZSIgewogICAgICAgICAgICAgICAgc2hhcGUgY3lsaW5kZXIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIiNmZjAwMDAiCiAgICAgICAgICAgICAgICBjb2xvciAiI2ZmZmZmZiIKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJQZXJzb24iIHsKICAgICAgICAgICAgICAgIHNoYXBlIHBlcnNvbgogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAiIzAwMDBmZiIKICAgICAgICAgICAgICAgIGNvbG9yICIjZmZmZmZmIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQp9",
+    "structurizr.inspection.info" : "0",
+    "structurizr.inspection.ignore" : "0",
+    "structurizr.inspection.warning" : "0"
+  },
+  "views" : {
+    "configuration" : {
+      "styles" : {
+        "elements" : [ {
+          "background" : "#ff0000",
+          "color" : "#ffffff",
+          "shape" : "Cylinder",
+          "tag" : "Database"
+        }, {
+          "background" : "#0000ff",
+          "color" : "#ffffff",
+          "shape" : "Person",
+          "tag" : "Person"
+        } ]
+      },
+      "terminology" : { }
+    },
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "Sep3-System-Containers",
+      "name" : "Container View: Sep3 System",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "11"
+      }, {
+        "id" : "12"
+      }, {
+        "id" : "13"
+      }, {
+        "id" : "14"
+      }, {
+        "id" : "15"
+      }, {
+        "id" : "16"
+      }, {
+        "id" : "17"
+      }, {
+        "id" : "18"
+      }, {
+        "id" : "9"
+      } ],
+      "softwareSystemId" : "2"
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "Sep3-System",
+      "name" : "System Context View: Sep3 System",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "10"
+      } ],
+      "softwareSystemId" : "2"
+    } ]
+  }
+}
