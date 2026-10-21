@@ -1,0 +1,6 @@
+@Intermediary_HostAddress = http://localhost:5073
+
+GET {{Intermediary_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

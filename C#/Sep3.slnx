@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="./DatabaseGateway/DatabaseGateway.csproj" />
+  <Project Path="./Intermediary/Intermediary.csproj" />
+</Solution>

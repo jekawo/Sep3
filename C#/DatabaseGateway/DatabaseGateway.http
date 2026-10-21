@@ -1,0 +1,6 @@
+@DatabaseGateway_HostAddress = http://localhost:5258
+
+GET {{DatabaseGateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
