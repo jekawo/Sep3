@@ -1,11 +1,12 @@
 workspace "Sep3 Architecture" "Vores Sep3 Arkitektur diagram" {
     model {
-        user = person "User" "en bruger af Sep3 systemet"
+        user = person "Rejse planlægger" "en bruger af Tagalong"
+        user2 = person "Slut Bruger" "En bruger af Tagalong"
 
-        softwareSystem = softwareSystem "Sep3 System" "Sep3 systemet" {
+        sep3 = softwareSystem "Tagalong" "Rejseplænlægning og budgettering" {
             javaClient = container "Java Client" "En Java klient applikation" "Java"
-            javaService = container "Java Service" "En Java database proxy applikation" "Java"
             blazorClient = container "Blazor Client" "En Blazor klient applikation" "Blazor"
+            javaService = container "Java Service" "En Java database proxy applikation" "Java"
             csharpService = container "C# Service" "En C# database proxy applikation og SignalR hub" "C#"
             databaseGateway = container "Database Gateway" "En database gateway applikation der bruger efCore" "C#"
            
@@ -23,17 +24,32 @@ workspace "Sep3 Architecture" "Vores Sep3 Arkitektur diagram" {
             csharpService -> databaseGateway "Kommunikerer med"
             databaseGateway -> database "Kommunikerer med"
         }
+
+        overview = softwareSystem "Sep3 System Overview" "Sep3 applikationer" {
+            user2 -> sep3 "Bruger systemet via java klient"
+            user2 -> sep3 "Bruger systemet via blazor klient"
+            sep3 -> user2 "Viser data"
+        }
     }
 
     views {
-        systemContext softwareSystem "Sep3-System" {
+        
+        systemlandscape "c1" {
+            include sep3 user2
+        }
+        systemContext sep3 "c2" {
             include *
             autolayout
         }
 
-        container softwareSystem "Sep3-System-Containers" {
+        container sep3 "Sep3-System-Containers" {
             include *
-            autolayout
+            autolayout lr
+        }
+
+        container sep3 "Service-To-Service" {
+            include *
+            exclude javaClient blazorClient user
         }
 
         styles {
