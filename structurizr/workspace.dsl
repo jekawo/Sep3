@@ -17,12 +17,12 @@ workspace "Sep3 Architecture" "Vores Sep3 Arkitektur diagram" {
             user -> javaClient "Opdaterer budget"
             javaClient -> javaService "Kommunikerer med"
             user -> blazorClient "Interagerer med"
-            blazorClient -> csharpService "Kommunikerer med"
-            csharpService -> blazorClient "Sender opdateringer til via SignalR"
-            javaService -> csharpService "Kommunikerer med"
-            javaService -> databaseGateway "Kommunikerer med"
-            csharpService -> databaseGateway "Kommunikerer med"
-            databaseGateway -> database "Kommunikerer med"
+            blazorClient -> csharpService "Kommunikerer med" "Rest" "Rest"
+            csharpService -> blazorClient "Sender opdateringer til" "SignalR"
+            javaService -> csharpService "Kommunikerer med" "Rest" "Rest"
+            javaService -> databaseGateway "Kommunikerer med" "Rest" "Rest"
+            csharpService -> databaseGateway "Kommunikerer med" "Rest" "Rest"
+            databaseGateway -> database "Kommunikerer med" "EfCore"
         }
 
         overview = softwareSystem "Sep3 System Overview" "Sep3 applikationer" {
@@ -44,7 +44,6 @@ workspace "Sep3 Architecture" "Vores Sep3 Arkitektur diagram" {
 
         container sep3 "Sep3-System-Containers" {
             include *
-            autolayout lr
         }
 
         container sep3 "Service-To-Service" {
@@ -62,6 +61,13 @@ workspace "Sep3 Architecture" "Vores Sep3 Arkitektur diagram" {
                 shape person
                 background "#0000ff"
                 color "#ffffff"
+            }
+            relationship "Relationship" {
+                dashed false
+            }
+            relationship "Rest" {
+                color "#00ff00"
+                dashed true
             }
         }
     }
