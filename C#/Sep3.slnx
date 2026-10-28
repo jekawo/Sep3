@@ -1,4 +1,5 @@
 <Solution>
-  <Project Path="./DatabaseGateway/DatabaseGateway.csproj" />
-  <Project Path="./Intermediary/Intermediary.csproj" />
+  <Project Path="Tagalong/Tagalong.Client/Tagalong.Client.csproj" Id="6bf0142a-7763-4d31-a83f-6cc0fb8c7bcb" />
+  <Project Path="Tagalong/Tagalong/Tagalong.csproj" Id="8f338270-18f3-4d58-a867-7fd997d36bb1" />
+  <Project Path="WebApi/WebApi.csproj" Id="3affb71e-1879-4363-aef8-3776770d7398" />
 </Solution>
