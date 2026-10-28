@@ -3,7 +3,9 @@
   "description" : "Vores Sep3 Arkitektur diagram",
   "documentation" : { },
   "id" : 1,
-  "lastModifiedDate" : "2026-10-20T11:01:26Z",
+  "lastModifiedAgent" : "structurizr/diagrams/8d6eaf20-d369-41d1-b11e-63b6aab7b07c",
+  "lastModifiedDate" : "2026-10-27T20:30:27Z",
+  "lastModifiedUser" : "1238681407",
   "model" : {
     "people" : [ {
       "description" : "en bruger af Tagalong",
@@ -85,7 +87,8 @@
           "destinationId" : "7",
           "id" : "14",
           "sourceId" : "5",
-          "tags" : "Relationship"
+          "tags" : "Relationship,Rest",
+          "technology" : "Rest"
         } ],
         "tags" : "Element,Container",
         "technology" : "Blazor"
@@ -102,13 +105,15 @@
           "destinationId" : "7",
           "id" : "16",
           "sourceId" : "6",
-          "tags" : "Relationship"
+          "tags" : "Relationship,Rest",
+          "technology" : "Rest"
         }, {
           "description" : "Kommunikerer med",
           "destinationId" : "8",
           "id" : "17",
           "sourceId" : "6",
-          "tags" : "Relationship"
+          "tags" : "Relationship,Rest",
+          "technology" : "Rest"
         } ],
         "tags" : "Element,Container",
         "technology" : "Java"
@@ -121,17 +126,19 @@
           "structurizr.dsl.identifier" : "csharpService"
         },
         "relationships" : [ {
-          "description" : "Sender opdateringer til via SignalR",
+          "description" : "Sender opdateringer til",
           "destinationId" : "5",
           "id" : "15",
           "sourceId" : "7",
-          "tags" : "Relationship"
+          "tags" : "Relationship",
+          "technology" : "SignalR"
         }, {
           "description" : "Kommunikerer med",
           "destinationId" : "8",
           "id" : "18",
           "sourceId" : "7",
-          "tags" : "Relationship"
+          "tags" : "Relationship,Rest",
+          "technology" : "Rest"
         } ],
         "tags" : "Element,Container",
         "technology" : "C#"
@@ -148,7 +155,8 @@
           "destinationId" : "9",
           "id" : "19",
           "sourceId" : "8",
-          "tags" : "Relationship"
+          "tags" : "Relationship",
+          "technology" : "EfCore"
         } ],
         "tags" : "Element,Container",
         "technology" : "C#"
@@ -191,15 +199,16 @@
   },
   "name" : "Sep3 Architecture",
   "properties" : {
-    "structurizr.inspection.error" : "18",
-    "structurizr.dsl" : "d29ya3NwYWNlICJTZXAzIEFyY2hpdGVjdHVyZSIgIlZvcmVzIFNlcDMgQXJraXRla3R1ciBkaWFncmFtIiB7CiAgICBtb2RlbCB7CiAgICAgICAgdXNlciA9IHBlcnNvbiAiUmVqc2UgcGxhbmzDpmdnZXIiICJlbiBicnVnZXIgYWYgVGFnYWxvbmciCiAgICAgICAgdXNlcjIgPSBwZXJzb24gIlNsdXQgQnJ1Z2VyIiAiRW4gYnJ1Z2VyIGFmIFRhZ2Fsb25nIgoKICAgICAgICBzZXAzID0gc29mdHdhcmVTeXN0ZW0gIlRhZ2Fsb25nIiAiUmVqc2VwbMOmbmzDpmduaW5nIG9nIGJ1ZGdldHRlcmluZyIgewogICAgICAgICAgICBqYXZhQ2xpZW50ID0gY29udGFpbmVyICJKYXZhIENsaWVudCIgIkVuIEphdmEga2xpZW50IGFwcGxpa2F0aW9uIiAiSmF2YSIKICAgICAgICAgICAgYmxhem9yQ2xpZW50ID0gY29udGFpbmVyICJCbGF6b3IgQ2xpZW50IiAiRW4gQmxhem9yIGtsaWVudCBhcHBsaWthdGlvbiIgIkJsYXpvciIKICAgICAgICAgICAgamF2YVNlcnZpY2UgPSBjb250YWluZXIgIkphdmEgU2VydmljZSIgIkVuIEphdmEgZGF0YWJhc2UgcHJveHkgYXBwbGlrYXRpb24iICJKYXZhIgogICAgICAgICAgICBjc2hhcnBTZXJ2aWNlID0gY29udGFpbmVyICJDIyBTZXJ2aWNlIiAiRW4gQyMgZGF0YWJhc2UgcHJveHkgYXBwbGlrYXRpb24gb2cgU2lnbmFsUiBodWIiICJDIyIKICAgICAgICAgICAgZGF0YWJhc2VHYXRld2F5ID0gY29udGFpbmVyICJEYXRhYmFzZSBHYXRld2F5IiAiRW4gZGF0YWJhc2UgZ2F0ZXdheSBhcHBsaWthdGlvbiBkZXIgYnJ1Z2VyIGVmQ29yZSIgIkMjIgogICAgICAgICAgIAogICAgICAgICAgICBkYXRhYmFzZSA9IGNvbnRhaW5lciAiRGF0YWJhc2UiICJFbiBkYXRhYmFzZSBkZXIgYnJ1Z2VzIGFmIFNlcDMgc3lzdGVtZXQiICJTUUwiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICB9CgogICAgICAgICAgICB1c2VyIC0+IGphdmFDbGllbnQgIk9wZGF0ZXJlciBidWRnZXQiCiAgICAgICAgICAgIGphdmFDbGllbnQgLT4gamF2YVNlcnZpY2UgIktvbW11bmlrZXJlciBtZWQiCiAgICAgICAgICAgIHVzZXIgLT4gYmxhem9yQ2xpZW50ICJJbnRlcmFnZXJlciBtZWQiCiAgICAgICAgICAgIGJsYXpvckNsaWVudCAtPiBjc2hhcnBTZXJ2aWNlICJLb21tdW5pa2VyZXIgbWVkIgogICAgICAgICAgICBjc2hhcnBTZXJ2aWNlIC0+IGJsYXpvckNsaWVudCAiU2VuZGVyIG9wZGF0ZXJpbmdlciB0aWwgdmlhIFNpZ25hbFIiCiAgICAgICAgICAgIGphdmFTZXJ2aWNlIC0+IGNzaGFycFNlcnZpY2UgIktvbW11bmlrZXJlciBtZWQiCiAgICAgICAgICAgIGphdmFTZXJ2aWNlIC0+IGRhdGFiYXNlR2F0ZXdheSAiS29tbXVuaWtlcmVyIG1lZCIKICAgICAgICAgICAgY3NoYXJwU2VydmljZSAtPiBkYXRhYmFzZUdhdGV3YXkgIktvbW11bmlrZXJlciBtZWQiCiAgICAgICAgICAgIGRhdGFiYXNlR2F0ZXdheSAtPiBkYXRhYmFzZSAiS29tbXVuaWtlcmVyIG1lZCIKICAgICAgICB9CgogICAgICAgIG92ZXJ2aWV3ID0gc29mdHdhcmVTeXN0ZW0gIlNlcDMgU3lzdGVtIE92ZXJ2aWV3IiAiU2VwMyBhcHBsaWthdGlvbmVyIiB7CiAgICAgICAgICAgIHVzZXIyIC0+IHNlcDMgIkJydWdlciBzeXN0ZW1ldCB2aWEgamF2YSBrbGllbnQiCiAgICAgICAgICAgIHVzZXIyIC0+IHNlcDMgIkJydWdlciBzeXN0ZW1ldCB2aWEgYmxhem9yIGtsaWVudCIKICAgICAgICAgICAgc2VwMyAtPiB1c2VyMiAiVmlzZXIgZGF0YSIKICAgICAgICB9CiAgICB9CgogICAgdmlld3MgewogICAgICAgIAogICAgICAgIHN5c3RlbWxhbmRzY2FwZSAiYzEiIHsKICAgICAgICAgICAgaW5jbHVkZSBzZXAzIHVzZXIyCiAgICAgICAgfQogICAgICAgIHN5c3RlbUNvbnRleHQgc2VwMyAiYzIiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9sYXlvdXQKICAgICAgICB9CgogICAgICAgIGNvbnRhaW5lciBzZXAzICJTZXAzLVN5c3RlbS1Db250YWluZXJzIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0IGxyCiAgICAgICAgfQoKICAgICAgICBjb250YWluZXIgc2VwMyAiU2VydmljZS1Uby1TZXJ2aWNlIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBleGNsdWRlIGphdmFDbGllbnQgYmxhem9yQ2xpZW50IHVzZXIKICAgICAgICB9CgogICAgICAgIHN0eWxlcyB7CiAgICAgICAgICAgIGVsZW1lbnQgIkRhdGFiYXNlIiB7CiAgICAgICAgICAgICAgICBzaGFwZSBjeWxpbmRlcgogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAiI2ZmMDAwMCIKICAgICAgICAgICAgICAgIGNvbG9yICIjZmZmZmZmIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIlBlcnNvbiIgewogICAgICAgICAgICAgICAgc2hhcGUgcGVyc29uCiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICIjMDAwMGZmIgogICAgICAgICAgICAgICAgY29sb3IgIiNmZmZmZmYiCiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICB9Cn0=",
     "structurizr.inspection.info" : "0",
     "structurizr.inspection.ignore" : "0",
-    "structurizr.inspection.warning" : "0"
+    "structurizr.inspection.error" : "12",
+    "structurizr.inspection.warning" : "0",
+    "structurizr.dsl" : "d29ya3NwYWNlICJTZXAzIEFyY2hpdGVjdHVyZSIgIlZvcmVzIFNlcDMgQXJraXRla3R1ciBkaWFncmFtIiB7CiAgICBtb2RlbCB7CiAgICAgICAgdXNlciA9IHBlcnNvbiAiUmVqc2UgcGxhbmzDpmdnZXIiICJlbiBicnVnZXIgYWYgVGFnYWxvbmciCiAgICAgICAgdXNlcjIgPSBwZXJzb24gIlNsdXQgQnJ1Z2VyIiAiRW4gYnJ1Z2VyIGFmIFRhZ2Fsb25nIgoKICAgICAgICBzZXAzID0gc29mdHdhcmVTeXN0ZW0gIlRhZ2Fsb25nIiAiUmVqc2VwbMOmbmzDpmduaW5nIG9nIGJ1ZGdldHRlcmluZyIgewogICAgICAgICAgICBqYXZhQ2xpZW50ID0gY29udGFpbmVyICJKYXZhIENsaWVudCIgIkVuIEphdmEga2xpZW50IGFwcGxpa2F0aW9uIiAiSmF2YSIKICAgICAgICAgICAgYmxhem9yQ2xpZW50ID0gY29udGFpbmVyICJCbGF6b3IgQ2xpZW50IiAiRW4gQmxhem9yIGtsaWVudCBhcHBsaWthdGlvbiIgIkJsYXpvciIKICAgICAgICAgICAgamF2YVNlcnZpY2UgPSBjb250YWluZXIgIkphdmEgU2VydmljZSIgIkVuIEphdmEgZGF0YWJhc2UgcHJveHkgYXBwbGlrYXRpb24iICJKYXZhIgogICAgICAgICAgICBjc2hhcnBTZXJ2aWNlID0gY29udGFpbmVyICJDIyBTZXJ2aWNlIiAiRW4gQyMgZGF0YWJhc2UgcHJveHkgYXBwbGlrYXRpb24gb2cgU2lnbmFsUiBodWIiICJDIyIKICAgICAgICAgICAgZGF0YWJhc2VHYXRld2F5ID0gY29udGFpbmVyICJEYXRhYmFzZSBHYXRld2F5IiAiRW4gZGF0YWJhc2UgZ2F0ZXdheSBhcHBsaWthdGlvbiBkZXIgYnJ1Z2VyIGVmQ29yZSIgIkMjIgogICAgICAgICAgIAogICAgICAgICAgICBkYXRhYmFzZSA9IGNvbnRhaW5lciAiRGF0YWJhc2UiICJFbiBkYXRhYmFzZSBkZXIgYnJ1Z2VzIGFmIFNlcDMgc3lzdGVtZXQiICJTUUwiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICB9CgogICAgICAgICAgICB1c2VyIC0+IGphdmFDbGllbnQgIk9wZGF0ZXJlciBidWRnZXQiCiAgICAgICAgICAgIGphdmFDbGllbnQgLT4gamF2YVNlcnZpY2UgIktvbW11bmlrZXJlciBtZWQiCiAgICAgICAgICAgIHVzZXIgLT4gYmxhem9yQ2xpZW50ICJJbnRlcmFnZXJlciBtZWQiCiAgICAgICAgICAgIGJsYXpvckNsaWVudCAtPiBjc2hhcnBTZXJ2aWNlICJLb21tdW5pa2VyZXIgbWVkIiAiUmVzdCIgIlJlc3QiCiAgICAgICAgICAgIGNzaGFycFNlcnZpY2UgLT4gYmxhem9yQ2xpZW50ICJTZW5kZXIgb3BkYXRlcmluZ2VyIHRpbCIgIlNpZ25hbFIiCiAgICAgICAgICAgIGphdmFTZXJ2aWNlIC0+IGNzaGFycFNlcnZpY2UgIktvbW11bmlrZXJlciBtZWQiICJSZXN0IiAiUmVzdCIKICAgICAgICAgICAgamF2YVNlcnZpY2UgLT4gZGF0YWJhc2VHYXRld2F5ICJLb21tdW5pa2VyZXIgbWVkIiAiUmVzdCIgIlJlc3QiCiAgICAgICAgICAgIGNzaGFycFNlcnZpY2UgLT4gZGF0YWJhc2VHYXRld2F5ICJLb21tdW5pa2VyZXIgbWVkIiAiUmVzdCIgIlJlc3QiCiAgICAgICAgICAgIGRhdGFiYXNlR2F0ZXdheSAtPiBkYXRhYmFzZSAiS29tbXVuaWtlcmVyIG1lZCIgIkVmQ29yZSIKICAgICAgICB9CgogICAgICAgIG92ZXJ2aWV3ID0gc29mdHdhcmVTeXN0ZW0gIlNlcDMgU3lzdGVtIE92ZXJ2aWV3IiAiU2VwMyBhcHBsaWthdGlvbmVyIiB7CiAgICAgICAgICAgIHVzZXIyIC0+IHNlcDMgIkJydWdlciBzeXN0ZW1ldCB2aWEgamF2YSBrbGllbnQiCiAgICAgICAgICAgIHVzZXIyIC0+IHNlcDMgIkJydWdlciBzeXN0ZW1ldCB2aWEgYmxhem9yIGtsaWVudCIKICAgICAgICAgICAgc2VwMyAtPiB1c2VyMiAiVmlzZXIgZGF0YSIKICAgICAgICB9CiAgICB9CgogICAgdmlld3MgewogICAgICAgIAogICAgICAgIHN5c3RlbWxhbmRzY2FwZSAiYzEiIHsKICAgICAgICAgICAgaW5jbHVkZSBzZXAzIHVzZXIyCiAgICAgICAgfQogICAgICAgIHN5c3RlbUNvbnRleHQgc2VwMyAiYzIiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9sYXlvdXQKICAgICAgICB9CgogICAgICAgIGNvbnRhaW5lciBzZXAzICJTZXAzLVN5c3RlbS1Db250YWluZXJzIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgIH0KCiAgICAgICAgY29udGFpbmVyIHNlcDMgIlNlcnZpY2UtVG8tU2VydmljZSIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgZXhjbHVkZSBqYXZhQ2xpZW50IGJsYXpvckNsaWVudCB1c2VyCiAgICAgICAgfQoKICAgICAgICBzdHlsZXMgewogICAgICAgICAgICBlbGVtZW50ICJEYXRhYmFzZSIgewogICAgICAgICAgICAgICAgc2hhcGUgY3lsaW5kZXIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIiNmZjAwMDAiCiAgICAgICAgICAgICAgICBjb2xvciAiI2ZmZmZmZiIKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJQZXJzb24iIHsKICAgICAgICAgICAgICAgIHNoYXBlIHBlcnNvbgogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAiIzAwMDBmZiIKICAgICAgICAgICAgICAgIGNvbG9yICIjZmZmZmZmIgogICAgICAgICAgICB9CiAgICAgICAgICAgIHJlbGF0aW9uc2hpcCAiUmVsYXRpb25zaGlwIiB7CiAgICAgICAgICAgICAgICBkYXNoZWQgZmFsc2UKICAgICAgICAgICAgfQogICAgICAgICAgICByZWxhdGlvbnNoaXAgIlJlc3QiIHsKICAgICAgICAgICAgICAgIGNvbG9yICIjMDBmZjAwIgogICAgICAgICAgICAgICAgZGFzaGVkIHRydWUKICAgICAgICAgICAgfQogICAgICAgIH0KICAgIH0KfQ=="
   },
   "views" : {
     "configuration" : {
-      "lastSavedView" : "c1",
+      "lastSavedView" : "Sep3-System-Containers",
+      "metadataSymbols" : "SquareBrackets",
       "styles" : {
         "elements" : [ {
           "background" : "#ff0000",
@@ -211,67 +220,109 @@
           "color" : "#ffffff",
           "shape" : "Person",
           "tag" : "Person"
+        } ],
+        "relationships" : [ {
+          "dashed" : false,
+          "tag" : "Relationship"
+        }, {
+          "color" : "#00ff00",
+          "dashed" : true,
+          "tag" : "Rest"
         } ]
       },
       "terminology" : { }
     },
     "containerViews" : [ {
-      "automaticLayout" : {
-        "edgeSeparation" : 50,
-        "nodeSeparation" : 50,
-        "rankDirection" : "LeftRight",
-        "rankSeparation" : 100,
-        "vertices" : true
+      "dimensions" : {
+        "height" : 1284,
+        "width" : 4850
       },
       "elements" : [ {
         "id" : "1",
-        "x" : 0,
-        "y" : 0
+        "x" : 199,
+        "y" : 290
       }, {
         "id" : "4",
-        "x" : 0,
-        "y" : 0
+        "x" : 1010,
+        "y" : 695
       }, {
         "id" : "5",
-        "x" : 0,
-        "y" : 0
+        "x" : 1020,
+        "y" : 15
       }, {
         "id" : "6",
-        "x" : 0,
-        "y" : 0
+        "x" : 1795,
+        "y" : 695
       }, {
         "id" : "7",
-        "x" : 0,
-        "y" : 0
+        "x" : 1795,
+        "y" : 60
       }, {
         "id" : "8",
-        "x" : 0,
-        "y" : 0
+        "x" : 2535,
+        "y" : 295
       }, {
         "id" : "9",
-        "x" : 0,
-        "y" : 0
+        "x" : 3240,
+        "y" : 300
       } ],
       "externalSoftwareSystemBoundariesVisible" : false,
       "key" : "Sep3-System-Containers",
       "name" : "Container View: Tagalong",
       "order" : 3,
       "relationships" : [ {
-        "id" : "10"
+        "id" : "10",
+        "vertices" : [ {
+          "x" : 399,
+          "y" : 845
+        } ]
       }, {
         "id" : "12"
       }, {
-        "id" : "13"
+        "id" : "13",
+        "vertices" : [ {
+          "x" : 399,
+          "y" : 185
+        }, {
+          "x" : 1005,
+          "y" : 185
+        } ]
       }, {
-        "id" : "14"
+        "id" : "14",
+        "vertices" : [ {
+          "x" : 1470,
+          "y" : 235
+        }, {
+          "x" : 1795,
+          "y" : 235
+        } ]
       }, {
-        "id" : "15"
+        "id" : "15",
+        "vertices" : [ {
+          "x" : 1795,
+          "y" : 100
+        }, {
+          "x" : 1480,
+          "y" : 100
+        } ]
       }, {
-        "id" : "16"
+        "id" : "16",
+        "vertices" : [ {
+          "x" : 2020,
+          "y" : 365
+        } ]
       }, {
-        "id" : "17"
+        "id" : "17",
+        "vertices" : [ {
+          "x" : 2760,
+          "y" : 845
+        } ]
       }, {
-        "id" : "18"
+        "id" : "18",
+        "vertices" : [ {
+          "x" : 2760,
+          "y" : 210
+        } ]
       }, {
         "id" : "19"
       } ],
