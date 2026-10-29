@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "MyApp.Grpc";
+option csharp_namespace = "Tagalong.Grpc";
 
 package greet;
 

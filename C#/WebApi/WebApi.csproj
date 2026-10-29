@@ -25,4 +25,8 @@
         <Folder Include="Proto\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Tagalong.Contracts\Tagalong.Contracts.csproj" />
+    </ItemGroup>
+
 </Project>

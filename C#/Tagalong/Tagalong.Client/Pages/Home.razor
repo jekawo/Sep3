@@ -1,7 +1,35 @@
-﻿@page "/"
+@page "/"
+@inject IConfiguration Configuration
+@implements IAsyncDisposable
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Tagalong</h1>
 
-Welcome to your new app.
+<p role="status">Hub status: @(hubConnection?.State.ToString() ?? "Not connected")</p>
+
+<div class="mb-3">
+    <input class="form-control mb-2" @bind="name" placeholder="Your name" />
+    <button class="btn btn-primary" @onclick="SayHello" disabled="@(!IsConnected)">Say hello</button>
+</div>
+
+@if (reply is not null)
+{
+    <p>@reply</p>
+}
+
+@if (greetings.Count > 0)
+{
+    <h5>Greetings from others</h5>
+    <ul>
+        @foreach (var greeting in greetings)
+        {
+            <li>@greeting</li>
+        }
+    </ul>
+}
+
+@if (error is not null)
+{
+    <p class="text-danger">@error</p>
+}
