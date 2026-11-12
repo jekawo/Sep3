@@ -1,4 +1,5 @@
 using Tagalong.Client.Pages;
+using Tagalong.Client.Services;
 using Tagalong.Components;
 
 namespace Tagalong;
@@ -13,6 +14,8 @@ public class Program
         builder.Services.AddRazorComponents()
             .AddInteractiveServerComponents()
             .AddInteractiveWebAssemblyComponents();
+
+        builder.Services.AddTagalongClientServices();
 
         var app = builder.Build();
 

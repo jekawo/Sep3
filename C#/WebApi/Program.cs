@@ -31,6 +31,8 @@ public class Program
             o.Address = new Uri("http://localhost:5001");
         });
 
+        builder.Services.AddScoped<IGreetingService, GreetingService>();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

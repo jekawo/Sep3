@@ -1,21 +1,16 @@
 using Microsoft.AspNetCore.SignalR;
-using Tagalong.Grpc;
 using Tagalong.Contracts;
-using TagalongClient = Tagalong.Grpc.Tagalong.TagalongClient;
 
 namespace WebApi.Services;
 
-public class LiveHub(TagalongClient client) : Hub<IHubCallbacks>, ILiveHub
+public class LiveHub(IGreetingService greetings) : Hub<IHubCallbacks>, ILiveHub
 {
     public async Task<string> SayHello(string name)
     {
-        var response = await client.SayHelloAsync(new HelloRequest
-        {
-            Name = name
-        });
+        var message = await greetings.SayHello(name);
 
-        await Clients.Others.ReceiveGreeting(name, response.Message);
+        await Clients.Others.ReceiveGreeting(name, message);
 
-        return response.Message;
+        return message;
     }
 }

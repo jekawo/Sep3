@@ -13,6 +13,11 @@
     <button class="btn btn-primary" @onclick="SayHello" disabled="@(!IsConnected)">Say hello</button>
 </div>
 
+<div class="mb-3"
+    <input class="form-control mb-2" @bind="activity" placeholder="Your Activity" />
+    <button class="btn btn-primary" @onclick="SendActivity">Send Activity</button>
+</div>
+
 @if (reply is not null)
 {
     <p>@reply</p>

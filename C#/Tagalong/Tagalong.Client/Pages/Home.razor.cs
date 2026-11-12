@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using Tagalong.Client.Services;
+using Tagalong.Client.Services.Interfaces;
 using Tagalong.Contracts;
 using TypedSignalR.Client;
 
@@ -13,6 +14,13 @@ public partial class Home
     private string? reply;
     private readonly List<string> greetings = [];
     private string? error;
+    private string activity = "";
+    private ITagalongApi _api;
+
+    public Home(ITagalongApi api)
+    {
+        _api = api ?? throw new ArgumentNullException(nameof(api));
+    }
 
     private bool IsConnected => hubConnection?.State == HubConnectionState.Connected;
 
@@ -62,6 +70,11 @@ public partial class Home
         {
             error = ex.Message;
         }
+    }
+
+    private async Task SendActivity()
+    {
+        await _api.SendActivity(activity);
     }
 
     private Task ReceiveGreeting(string name, string message)
