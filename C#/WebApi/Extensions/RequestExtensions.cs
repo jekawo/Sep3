@@ -126,11 +126,6 @@ public static class RequestExtensions
                 modelState.AddModelError(nameof(request.ActivityId), "Activity id is required.");
             }
 
-            if (request.Approve is null)
-            {
-                modelState.AddModelError(nameof(request.Approve), "Approve must be true or false.");
-            }
-
             return modelState.IsValid;
         }
     }

@@ -19,7 +19,7 @@ public class VoteController(IActivityService activityService) : ControllerBase
             return UnprocessableEntity(ModelState);
         }
 
-        var result = await activityService.Vote(User.GetUserId(), request.ActivityId, request.Approve!.Value);
+        var result = await activityService.Vote(User.GetUserId(), request.ActivityId, request.Vote);
 
         return result.Succeeded ? NoContent() : this.Failure(result);
     }
