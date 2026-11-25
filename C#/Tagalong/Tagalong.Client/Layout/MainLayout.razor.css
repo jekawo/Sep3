@@ -1,11 +1,11 @@
 .page {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /*testing branch*/
 }
 
 main {
-    flex: 1;
+    flex: 1; 
 }
 
 .sidebar {
