@@ -2,35 +2,65 @@
 using Microsoft.AspNetCore.Mvc;
 using Tagalong.Contracts.Request;
 using WebApi.Extensions;
-using WebApi.Helpers;
 using WebApi.Services.Interfaces;
 
 namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UsersController(IUserService userService) : ControllerBase
+public class UsersController(IUserService userService, IAuthenticationService authenticationService) : ControllerBase
 {
     [HttpPost]
-    public IActionResult CreateUser([FromBody] CreateUserRequest request)
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
     {
         if (!request.Validate(ModelState))
         {
             return UnprocessableEntity(ModelState);
         }
 
-        var hashes = PasswordHasher.Hash(request.Password);
+        var result = await userService.Create(request);
 
-        // TODO JKW - Map to UserCreation Object
-        userService.Create();
-
-        return Created();
+        return result.Succeeded ? Created() : this.Failure(result);
     }
 
-    [HttpPut("/{id:long}")]
-    public IActionResult UpdateUser(long id, [FromBody] UpdateUserRequest request)
+    [HttpPut]
+    [Authorize]
+    public async Task<IActionResult> UpdateUser([FromBody] UpdateUserRequest request)
     {
-        //TODO JKW - Map to update methods parameters
-        userService.Update();
+        if (!request.Validate(ModelState))
+        {
+            return UnprocessableEntity(ModelState);
+        }
+
+        var result = await userService.Update(User.GetUserId(), request);
+
+        return result.Succeeded ? NoContent() : this.Failure(result);
+    }
+
+    [HttpDelete]
+    [Authorize]
+    public async Task<IActionResult> DeleteUser()
+    {
+        var result = await userService.Delete(User.GetUserId());
+
+        return result.Succeeded ? NoContent() : this.Failure(result);
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    {
+        if (!request.Validate(ModelState))
+        {
+            return UnprocessableEntity(ModelState);
+        }
+
+        var user = await userService.LoginByUsernameAndPassword(request.Username, request.Password);
+
+        if (user is null)
+        {
+            return Unauthorized();
+        }
+
+        return Ok(authenticationService.GenerateJWT(user));
     }
 }

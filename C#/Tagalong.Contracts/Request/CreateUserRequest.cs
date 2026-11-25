@@ -1,14 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Tagalong.Contracts.Request;
 
 public class CreateUserRequest
 {
-    public string UserName { get; set; }
-    public string Password { get; set; }
-    public string Email { get; set; }
+    public string Username { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
 }
 
-public class UpdateUserRequest : CreateUserRequest;
+/// <summary>
+/// Fields left empty are not changed. <see cref="PreviousPassword"/> is always required.
+/// </summary>
+public class UpdateUserRequest
+{
+    public string? Username { get; set; }
+    public string? Password { get; set; }
+    public string? Email { get; set; }
+    public string PreviousPassword { get; set; } = string.Empty;
+}
+
+public class LoginRequest
+{
+    public string Username { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
+}

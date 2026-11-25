@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Tagalong.Contracts.Request;
+using WebApi.Extensions;
+using WebApi.Services.Interfaces;
 
 namespace WebApi.Controllers;
 
@@ -10,8 +12,15 @@ namespace WebApi.Controllers;
 public class VoteController(IActivityService activityService) : ControllerBase
 {
     [HttpPost]
-    public IActionResult Vote([FromBody]object request)
+    public async Task<IActionResult> Vote([FromBody] VoteRequest request)
     {
-        return Forbid();
+        if (!request.Validate(ModelState))
+        {
+            return UnprocessableEntity(ModelState);
+        }
+
+        var result = await activityService.Vote(User.GetUserId(), request.ActivityId, request.Approve!.Value);
+
+        return result.Succeeded ? NoContent() : this.Failure(result);
     }
 }

@@ -1,23 +1,32 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Tagalong.Contracts.Request;
+using WebApi.Extensions;
+using WebApi.Services.Interfaces;
 
 namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [Authorize]
 [ApiController]
-public class TripController : ControllerBase
+public class TripController(ITripService tripService) : ControllerBase
 {
     [HttpPost]
-    public IActionResult CreateTrip([FromBody] object request)
+    public async Task<IActionResult> CreateTrip([FromBody] CreateTripRequest request)
     {
-        return Forbid();
+        if (!request.Validate(ModelState))
+        {
+            return UnprocessableEntity(ModelState);
+        }
+
+        var trip = await tripService.Create(User.GetUserId(), request);
+
+        return StatusCode(StatusCodes.Status201Created, trip);
     }
 
     [HttpGet]
-    public IActionResult GetTripsForUser([FromQuery] bool inactive)
+    public async Task<IActionResult> GetTripsForUser([FromQuery] bool inactive)
     {
-        return Forbid();
+        return Ok(await tripService.GetTripsForUser(User.GetUserId(), inactive));
     }
 }
