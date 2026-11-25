@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.SignalR;
 using Tagalong.Contracts;
+using WebApi.Services.Interfaces;
 
 namespace WebApi.Services;
 

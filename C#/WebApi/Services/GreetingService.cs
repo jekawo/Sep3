@@ -1,4 +1,5 @@
 using Tagalong.Grpc;
+using WebApi.Services.Interfaces;
 using TagalongClient = Tagalong.Grpc.Tagalong.TagalongClient;
 
 namespace WebApi.Services;

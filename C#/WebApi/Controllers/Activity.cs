@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Tagalong.Contracts;
 using WebApi.Services;
+using WebApi.Services.Interfaces;
 
 namespace WebApi.Controllers;
 
