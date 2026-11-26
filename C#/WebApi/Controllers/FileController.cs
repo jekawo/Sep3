@@ -2,10 +2,13 @@
 
 namespace WebApi.Controllers;
 
-public class FileController : Controller
+[Obsolete("This controller is not implemented yet.")]
+[ApiController]
+[Route("api/[controller]")]
+public class FileController : ControllerBase
 {
     public IActionResult Index()
     {
-        return View();
+        throw new NotImplementedException("This method is not implemented yet.");
     }
 }
