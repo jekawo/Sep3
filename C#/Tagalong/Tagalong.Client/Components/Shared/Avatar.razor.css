@@ -1,0 +1,31 @@
+/* Avatar – the circle itself. The row of avatars (.avatar-stack) is in components.css */
+
+.avatar {
+    display: inline-flex;
+    align-items: center;          /* vertical centre */
+    justify-content: center;      /* horizontal centre */
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: var(--border-width) solid var(--color-border);
+    background: var(--color-accent-cyan);
+    color: var(--color-text);
+    font-size: var(--text-small);
+    font-weight: 700;
+    line-height: 1;
+    text-box: trim-both cap alphabetic;   /* trims the font's extra space above and below the letters */
+}
+
+.avatar--small {
+    width: 30px;
+    height: 30px;
+    font-size: var(--text-caption);
+}
+
+.avatar--you {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+}

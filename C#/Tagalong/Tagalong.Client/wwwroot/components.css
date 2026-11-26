@@ -147,6 +147,16 @@
     background: var(--color-success-soft);
 }
 
+/* A row of overlapping avatars (TripCard, ActivityCard). The avatar itself is styled in Avatar.razor.css. */
+.avatar-stack {
+    display: flex;
+    align-items: center;
+}
+
+.avatar-stack > .avatar + .avatar {
+    margin-left: -8px;
+}
+
 /* Badges – Figma: Badge (Info / Success / Warning / Danger) */
 .badge {
     display: inline-flex;

@@ -1,1 +1,54 @@
-@* TODO: implement FormField *@
+@* FormField – label (+ * or "(optional)"), the input you put inside, hint and validation message.
+   Figma: Components → "Input". Use inside an <EditForm>. *@
+
+@typeparam TValue
+@using System.Linq.Expressions
+
+<div class="field">
+    <label class="field__label" for="@Id">
+        @Label
+        @if (Required)
+        {
+            <span class="field__required" aria-hidden="true">*</span>
+        }
+        else if (ShowOptional)
+        {
+            <span class="field__optional">(optional)</span>
+        }
+    </label>
+
+    @ChildContent
+
+    @if (!string.IsNullOrWhiteSpace(Hint))
+    {
+        <p class="field__hint">@Hint</p>
+    }
+
+    @if (For is not null)
+    {
+        <ValidationMessage For="For" />
+    }
+</div>
+
+@code {
+    /// <summary>The label text, e.g. "Trip name".</summary>
+    [Parameter, EditorRequired] public string Label { get; set; } = "";
+
+    /// <summary>Same id as the input inside – clicking the label then focuses the input.</summary>
+    [Parameter] public string? Id { get; set; }
+
+    /// <summary>Shows a cherry * after the label.</summary>
+    [Parameter] public bool Required { get; set; }
+
+    /// <summary>Shows "(optional)" when not required. Turn off on Log in / Sign up, where everything is required anyway.</summary>
+    [Parameter] public bool ShowOptional { get; set; } = true;
+
+    /// <summary>Small grey text under the input, e.g. "Everyone in the trip can see the destination."</summary>
+    [Parameter] public string? Hint { get; set; }
+
+    /// <summary>The model property, e.g. () => model.Name – shows its validation error under the field.</summary>
+    [Parameter] public Expression<Func<TValue>>? For { get; set; }
+
+    /// <summary>The input itself (InputText, InputDate, InputNumber, InputTextArea …).</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

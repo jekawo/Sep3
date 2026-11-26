@@ -1,0 +1,63 @@
+/* FormField – the input inside comes from the page, so it needs ::deep */
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+}
+
+.field__label {
+    font-size: var(--text-small);
+    font-weight: 600;
+}
+
+.field__required {
+    color: var(--color-primary);
+    margin-left: 2px;
+}
+
+.field__optional {
+    font-weight: 400;
+    color: var(--color-text-muted);
+    margin-left: var(--space-4);
+}
+
+.field__hint {
+    font-size: var(--text-caption);
+    color: var(--color-text-muted);
+}
+
+/* The input, whatever kind it is */
+.field ::deep input,
+.field ::deep textarea,
+.field ::deep select {
+    width: 100%;
+    padding: var(--space-12) var(--space-16);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+}
+
+.field ::deep input::placeholder,
+.field ::deep textarea::placeholder {
+    color: var(--color-text-muted);
+}
+
+.field ::deep textarea {
+    min-height: 96px;
+    resize: vertical;
+}
+
+/* Blazor marks invalid inputs with .invalid after submit */
+.field ::deep .invalid {
+    border-color: var(--color-danger);
+    background: var(--color-danger-soft);
+}
+
+.field ::deep .validation-message {
+    font-size: var(--text-small);
+    color: var(--color-danger);
+}

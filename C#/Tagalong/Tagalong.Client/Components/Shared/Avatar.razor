@@ -1,0 +1,14 @@
+<span class="avatar @(Small ? "avatar--small" : "") @(IsYou ? "avatar--you" : "")" title="@Name">@(IsYou ? "You" : Initials)</span>
+
+@code {
+    [Parameter, EditorRequired] public string Name { get; set; } = "";
+    [Parameter] public bool IsYou { get; set; }
+    [Parameter] public bool Small { get; set; }
+
+    // "Rumeysa Erdogan" → "RE", "Emre" → "E"
+    // title attribute shows the full name when you hover over an avatar
+    private string Initials =>
+        string.Concat(Name.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Take(2)
+            .Select(p => char.ToUpperInvariant(p[0])));
+}
