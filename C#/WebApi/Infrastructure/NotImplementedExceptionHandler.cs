@@ -9,6 +9,7 @@ public class NotImplementedExceptionHandler(IProblemDetailsService problemDetail
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception,
         CancellationToken cancellationToken)
     {
+        // Returning false means "not handled", so the exception gets the normal error handling.
         if (exception is not NotImplementedException)
         {
             return false;

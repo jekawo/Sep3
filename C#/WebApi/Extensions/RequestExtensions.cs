@@ -1,6 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Tagalong.Contracts.Request;
+using WebApi.Models.Trips;
+using WebApi.Services;
 
 namespace WebApi.Extensions;
 
@@ -14,10 +16,18 @@ public static class RequestExtensions
         "Password must be at least 6 characters with a lowercase letter, an uppercase letter, a digit and a symbol.";
 
     private const string EmailRule = "A valid email address is required.";
+    private const string TimeOrderRule = "End time cannot be before start time.";
 
+    // A rough shape check (something@something.something), not proof that the address exists.
     private static readonly Regex EmailRegex = new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+
+    // Each (?=...) is a lookahead: it requires a character type somewhere in the text without
+    // consuming it, so the order does not matter. [^\w\s] is the symbol rule. Note that \w
+    // includes the underscore, so "_" does not count as a symbol.
     private static readonly Regex PasswordRegex = new(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{6,}$");
 
+    // An extension block (C# 14) adds methods to a type from outside it, so the shared contract
+    // classes stay free of server logic. The compiler picks the Validate matching the request type.
     extension(CreateUserRequest request)
     {
         public bool Validate(ModelStateDictionary modelState)
@@ -71,6 +81,16 @@ public static class RequestExtensions
         }
     }
 
+    extension(RefreshTokenRequest request)
+    {
+        public bool Validate(ModelStateDictionary modelState)
+        {
+            Require(modelState, request.RefreshToken, nameof(request.RefreshToken), "Refresh token is required.");
+
+            return modelState.IsValid;
+        }
+    }
+
     extension(CreateTripRequest request)
     {
         public bool Validate(ModelStateDictionary modelState)
@@ -88,6 +108,8 @@ public static class RequestExtensions
                 modelState.AddModelError(nameof(request.EndDate), "End date is required.");
             }
 
+            // Comparing nullable values gives false if either side is null,
+            // so missing dates are only reported by the checks above.
             if (request.EndDate < request.StartDate)
             {
                 modelState.AddModelError(nameof(request.EndDate), "End date cannot be before start date.");
@@ -107,13 +129,30 @@ public static class RequestExtensions
             }
 
             Require(modelState, request.Title, nameof(request.Title), "Title is required.");
-
-            if (request.EndTime < request.StartTime)
-            {
-                modelState.AddModelError(nameof(request.EndTime), "End time cannot be before start time.");
-            }
+            RequireTimeOrder(modelState, request.StartTime, request.EndTime, nameof(request.EndTime));
 
             return modelState.IsValid;
+        }
+    }
+
+    extension(UpdateActivityRequest request)
+    {
+        public bool Validate(ModelStateDictionary modelState)
+        {
+            RequireTimeOrder(modelState, request.StartTime, request.EndTime, nameof(request.EndTime));
+
+            return modelState.IsValid;
+        }
+
+        /// <summary>
+        /// Checks the times the activity would have after the update, since the request may hold only one of them.
+        /// </summary>
+        public ServiceResult ValidateAgainst(TripActivity current)
+        {
+            var startTime = request.StartTime ?? current.StartTime;
+            var endTime = request.EndTime ?? current.EndTime;
+
+            return endTime < startTime ? ServiceResult.Invalid(TimeOrderRule) : ServiceResult.Success();
         }
     }
 
@@ -127,6 +166,17 @@ public static class RequestExtensions
             }
 
             return modelState.IsValid;
+        }
+    }
+
+    private static void RequireTimeOrder(ModelStateDictionary modelState, DateTime? startTime, DateTime? endTime,
+        string key)
+    {
+        // False when either time is missing. DateTime comparison also ignores time zones,
+        // so both times are assumed to be in the same one.
+        if (endTime < startTime)
+        {
+            modelState.AddModelError(key, TimeOrderRule);
         }
     }
 

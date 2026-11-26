@@ -11,6 +11,7 @@ public static class ControllerExtensions
         public IActionResult Failure(ServiceResult result) => result.Status switch
         {
             ServiceStatus.NotFound => controller.Problem(result.Error, statusCode: StatusCodes.Status404NotFound),
+            // 403: we know who you are, but you are not allowed. 401 would mean "please log in".
             ServiceStatus.Forbidden => controller.Forbid(),
             ServiceStatus.Conflict => controller.Problem(result.Error, statusCode: StatusCodes.Status409Conflict),
             ServiceStatus.Invalid => controller.Problem(result.Error,

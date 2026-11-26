@@ -27,6 +27,8 @@ public class TripService(ITripGateway trips) : ITripService
         var today = DateOnly.FromDateTime(DateTime.UtcNow);
         var userTrips = await trips.GetForUser(userId);
 
+        // "Has the trip ended?" must equal the flag: inactive = true keeps ended trips,
+        // inactive = false keeps the rest, including trips ending today (in UTC).
         return userTrips
             .Where(trip => (trip.EndDate < today) == inactive)
             .OrderBy(trip => trip.StartDate)

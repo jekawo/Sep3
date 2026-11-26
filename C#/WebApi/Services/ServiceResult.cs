@@ -9,6 +9,8 @@ public enum ServiceStatus
     Invalid
 }
 
+// Services return this instead of HTTP responses or exceptions for expected failures,
+// which keeps HTTP knowledge in the controllers.
 public record ServiceResult(ServiceStatus Status, string? Error = null)
 {
     public bool Succeeded => Status == ServiceStatus.Success;
@@ -30,6 +32,7 @@ public record ServiceResult<T> : ServiceResult
     /// <summary>Set when the result succeeded.</summary>
     public T? Value { get; }
 
+    // Lets a method returning ServiceResult<T> simply "return value;" when it succeeds.
     public static implicit operator ServiceResult<T>(T value) => new(ServiceStatus.Success, value, null);
 
     public static ServiceResult<T> Failure(ServiceResult failure) => new(failure.Status, default, failure.Error);

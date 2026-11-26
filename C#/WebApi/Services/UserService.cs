@@ -6,13 +6,15 @@ using WebApi.Services.Interfaces;
 
 namespace WebApi.Services;
 
-public class UserService(IUserGateway users) : IUserService
+public class UserService(IUserGateway users, IRefreshTokenGateway refreshTokens) : IUserService
 {
     private const string UsernameTaken = "The username is already taken.";
     private const string UnknownUser = "The user does not exist.";
 
     public async Task<ServiceResult> Create(CreateUserRequest request)
     {
+        // Two simultaneous registrations could both pass this check,
+        // so the database should also require usernames to be unique.
         if (await users.GetByUsername(request.Username) is not null)
         {
             return ServiceResult.Conflict(UsernameTaken);
@@ -34,6 +36,8 @@ public class UserService(IUserGateway users) : IUserService
             return ServiceResult.NotFound(UnknownUser);
         }
 
+        // A valid token is not enough to change the account, so a stolen token
+        // cannot be used to change the password.
         if (!VerifyPassword(request.PreviousPassword, user))
         {
             return ServiceResult.Forbidden();
@@ -58,10 +62,17 @@ public class UserService(IUserGateway users) : IUserService
 
         if (!string.IsNullOrWhiteSpace(request.Password))
         {
+            // Assigns both values from the returned tuple at once. A new password also gets a new salt.
             (user.Salt, user.PasswordHash) = HashPassword(request.Password);
         }
 
         await users.Update(user);
+
+        // After a password change every device has to log in again once its access token expires.
+        if (!string.IsNullOrWhiteSpace(request.Password))
+        {
+            await refreshTokens.DeleteAllForUser(id);
+        }
 
         return ServiceResult.Success();
     }
@@ -73,6 +84,8 @@ public class UserService(IUserGateway users) : IUserService
             return ServiceResult.NotFound(UnknownUser);
         }
 
+        // Tokens first: if this fails, the account still exists and the request can be retried.
+        await refreshTokens.DeleteAllForUser(id);
         await users.Delete(id);
 
         return ServiceResult.Success();

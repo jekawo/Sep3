@@ -1,5 +1,6 @@
 using Tagalong.Contracts.Request;
 using Tagalong.Contracts.Response;
+using WebApi.Extensions;
 using WebApi.Gateways.Interfaces;
 using WebApi.Models.Trips;
 using WebApi.Services.Interfaces;
@@ -39,14 +40,12 @@ public class ActivityService(ITripService trips, IActivityGateway activities, IV
         }
 
         var activity = access.Value!;
-        var startTime = request.StartTime ?? activity.StartTime;
-        var endTime = request.EndTime ?? activity.EndTime;
+        // Validate before changing anything, so a rejected request leaves the activity untouched.
+        var validation = request.ValidateAgainst(activity);
 
-        // Validate that the end time is not before the start time.
-        if (endTime < startTime)
+        if (!validation.Succeeded)
         {
-            return ServiceResult<ActivityResponse>.Failure(
-                ServiceResult.Invalid("End time cannot be before start time."));
+            return ServiceResult<ActivityResponse>.Failure(validation);
         }
 
         if (!string.IsNullOrWhiteSpace(request.Title))
@@ -64,8 +63,8 @@ public class ActivityService(ITripService trips, IActivityGateway activities, IV
             activity.Location = request.Location;
         }
 
-        activity.StartTime = startTime;
-        activity.EndTime = endTime;
+        activity.StartTime = request.StartTime ?? activity.StartTime;
+        activity.EndTime = request.EndTime ?? activity.EndTime;
 
         await activities.Update(activity);
 
@@ -82,6 +81,8 @@ public class ActivityService(ITripService trips, IActivityGateway activities, IV
         }
 
         var tripActivities = await activities.GetForTrip(tripId);
+        // Fetch all the trip's votes in one call instead of one call per activity. A lookup groups
+        // them by activity and gives an empty list for activities without votes.
         var tripVotes = (await votes.GetForTrip(tripId)).ToLookup(vote => vote.ActivityId);
 
         return tripActivities
@@ -107,6 +108,7 @@ public class ActivityService(ITripService trips, IActivityGateway activities, IV
 
         if (!access.Succeeded)
         {
+            // A ServiceResult<T> is also a ServiceResult, so the failure can be passed straight on.
             return access;
         }
 
@@ -136,6 +138,7 @@ public class ActivityService(ITripService trips, IActivityGateway activities, IV
 
     private static ActivityResponse ToResponse(TripActivity activity, IEnumerable<Vote> activityVotes, long userId)
     {
+        // ToList because we go through the votes several times below.
         var all = activityVotes.ToList();
 
         return new ActivityResponse(
@@ -148,6 +151,7 @@ public class ActivityService(ITripService trips, IActivityGateway activities, IV
             activity.EndTime,
             all.Count(vote => vote.Approve),
             all.Count(vote => !vote.Approve),
+            // null when the user has not voted, which is different from false (voted no).
             all.FirstOrDefault(vote => vote.UserId == userId)?.Approve);
     }
 }
