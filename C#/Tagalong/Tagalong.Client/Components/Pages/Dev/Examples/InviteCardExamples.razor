@@ -1,4 +1,42 @@
 <section class="stack">
     <h2>InviteCard</h2>
-    <p class="text-muted">TODO: add examples when the component is built.</p>
+    <p class="text-small text-muted">Press Decline to see a card disappear (as on My trips).</p>
+
+    <div class="card-grid">
+        @foreach (var invite in invites)
+        {
+            <InviteCard Invite="invite" OnDecline="() => invites.Remove(invite)" />
+        }
+    </div>
+
+    @if (invites.Count == 0)
+    {
+        <button class="btn btn--secondary btn--small" @onclick="Reset">Bring them back</button>
+    }
 </section>
+
+@code {
+    private List<InviteDto> invites = new();
+
+    protected override void OnInitialized() => Reset();
+
+    private void Reset()
+    {
+        // InviteDto(Id, Trip, InvitedBy, InvitedEmailOrUsername, Status, CreatedAt)
+        invites = new()
+        {
+            new(1,
+                new TripDto(3, "Weekend i København", "København, Danmark",
+                    new DateOnly(2027, 6, 12), new DateOnly(2027, 6, 14), null, 1,
+                    new() { new(1, "Katalina Haritova") }),
+                new UserSummaryDto(1, "Katalina"),
+                "you@example.com", "Pending", DateTime.Now),
+
+            new(2,
+                new TripDto(4, "En meget lang turnavn der skal kunne wrappe pænt", null, null, null, null, 2,
+                    new() { new(2, "Emre Kekec") }),
+                new UserSummaryDto(2, "Emre"),
+                "you@example.com", "Pending", DateTime.Now)
+        };
+    }
+}

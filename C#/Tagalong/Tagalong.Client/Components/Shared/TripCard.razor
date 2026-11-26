@@ -1,1 +1,87 @@
-@* TODO: implement TripCard *@
+<article class="card trip-card @(IsSelected ? "card--selected" : "")">
+
+    @* ---------- Cover: stamp + Select / Edit buttons ---------- *@
+    <div class="trip-card__cover">
+
+        @if (ShowSelect)
+        {
+            if (IsSelected)
+            {
+                <span class="trip-card__select trip-card__select--on">✓ Selected</span>
+            }
+            else
+            {
+                <button type="button" class="trip-card__select" @onclick="OnSelect">○ Select</button>
+            }
+        }
+
+        <Stamp Label="@Stamp.LabelFor(Trip.Destination, Trip.Name)"
+               Color="Stamp.ColorFor(Trip.Id)"
+               Size="Stamp.StampSize.Medium" />
+
+        @if (ShowEdit)
+        {
+            <a class="btn btn--small trip-card__edit" href="@($"trips/{Trip.Id}/edit")">✎ Edit</a>
+        }
+    </div>
+
+    @* ---------- Name + destination · dates ---------- *@
+    <a class="trip-card__title" href="@($"trips/{Trip.Id}/activities")">
+        <h2>@Trip.Name</h2>
+    </a>
+
+    @if (!string.IsNullOrWhiteSpace(Meta))
+    {
+        <p class="text-small text-muted">@Meta</p>
+    }
+
+    @* ---------- Participants + Invite ---------- *@
+    <div class="row row--between">
+        <div class="avatar-stack">
+            @foreach (var p in Participants.Take(MaxAvatars))
+            {
+                <Avatar Name="@p.Name" Small="true" />
+            }
+            @if (Participants.Count > MaxAvatars)
+            {
+                <span class="trip-card__more">+@(Participants.Count - MaxAvatars)</span>
+            }
+        </div>
+
+        @if (ShowInvite)
+        {
+            <a class="btn btn--secondary btn--small" href="@($"trips/{Trip.Id}/invite")">+ Invite</a>
+        }
+    </div>
+</article>
+
+@code {
+    // ----- Parameters (= Figma component properties) -----
+
+    /// <summary>The trip to show. Name, destination, dates and participants come from here.</summary>
+    [Parameter, EditorRequired] public TripDto Trip { get; set; } = default!;
+
+    /// <summary>Figma: Selected = Yes / No</summary>
+    [Parameter] public bool IsSelected { get; set; }
+
+    /// <summary>Figma: Show select</summary>
+    [Parameter] public bool ShowSelect { get; set; }
+
+    /// <summary>Figma: Show edit button</summary>
+    [Parameter] public bool ShowEdit { get; set; }
+
+    /// <summary>Figma: Show invite button</summary>
+    [Parameter] public bool ShowInvite { get; set; }
+
+    /// <summary>Called when the user taps "○ Select" on a trip that isn't selected.</summary>
+    [Parameter] public EventCallback OnSelect { get; set; }
+
+
+    // ----- Helpers -----
+
+    private const int MaxAvatars = 5;
+
+    private List<UserSummaryDto> Participants => Trip.Participants ?? new();
+    
+    private string Meta => TripFormatting.Meta(Trip);
+}
