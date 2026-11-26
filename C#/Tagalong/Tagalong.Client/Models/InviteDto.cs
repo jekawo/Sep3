@@ -1,6 +1,9 @@
 namespace Tagalong.Client.Models;
 
-public class InviteDto
-{
-    // TODO
-}
+public record InviteDto(
+    int Id,
+    TripDto Trip,
+    UserSummaryDto InvitedBy,
+    string InvitedEmailOrUsername,
+    string Status,
+    DateTime CreatedAt);

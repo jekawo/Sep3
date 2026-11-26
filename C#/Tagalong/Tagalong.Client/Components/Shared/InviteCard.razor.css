@@ -1,0 +1,29 @@
+.invite-card {
+    background: var(--color-warning-soft);
+}
+
+.invite-card__top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16);
+}
+
+.invite-card__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-width: 0;              /* lets long trip names wrap instead of pushing the card wider */
+}
+
+.invite-card__by {
+    font-weight: 600;
+}
+
+.invite-card__actions {
+    display: flex;
+    gap: var(--space-12);
+}
+
+.invite-card__actions > * {
+    flex: 1;                   /* Decline and View invite share the width equally */
+}

@@ -1,1 +1,31 @@
-@* TODO: implement InviteCard *@
+<article class="card invite-card">
+    <div class="invite-card__top">
+        <Stamp Label="@Stamp.LabelFor(Invite.Trip.Destination, Invite.Trip.Name)"
+               Color="Stamp.ColorFor(Invite.Trip.Id)"
+               Size="Stamp.StampSize.Small" />
+
+        <div class="invite-card__text">
+            <h3>@Invite.Trip.Name</h3>
+            <p class="text-small invite-card__by">@Invite.InvitedBy.Name invited you</p>
+            @if (!string.IsNullOrWhiteSpace(Meta))
+            {
+                <p class="text-caption text-muted">@Meta</p>
+            }
+        </div>
+    </div>
+
+    <div class="invite-card__actions">
+        <button type="button" class="btn btn--secondary btn--small" @onclick="OnDecline">Decline</button>
+        <a class="btn btn--primary btn--small" href="@($"invites/{Invite.Id}")">View invite</a>
+    </div>
+</article>
+
+@code {
+    /// <summary>The invite to show. Trip details come from Invite.Trip.</summary>
+    [Parameter, EditorRequired] public InviteDto Invite { get; set; } = default!;
+
+    /// <summary>Called when the user taps Decline. The page calls the API and removes the card.</summary>
+    [Parameter] public EventCallback OnDecline { get; set; }
+
+    private string Meta => TripFormatting.Meta(Invite.Trip);
+}

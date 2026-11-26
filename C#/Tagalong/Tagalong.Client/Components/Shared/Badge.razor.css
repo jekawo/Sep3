@@ -1,0 +1,33 @@
+/* Badge – small pill with a thin outline */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-4) var(--space-12);
+    border: var(--border-thin) solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: var(--text-caption);
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.badge--info {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+}
+
+.badge--success {
+    background: var(--color-accent-lime);
+    color: var(--color-text);
+}
+
+.badge--warning {
+    background: var(--color-warning-soft);
+    color: var(--color-warning);
+}
+
+.badge--danger {
+    background: var(--color-accent-pink);
+    color: var(--color-text);
+}
