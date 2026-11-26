@@ -4,7 +4,7 @@ using Tagalong.Client.Services.Interfaces;
 using Tagalong.Contracts;
 using TypedSignalR.Client;
 
-namespace Tagalong.Client.Pages;
+namespace Tagalong.Client.Components.Pages;
 
 public partial class Home
 {
