@@ -1,4 +1,92 @@
 @page "/register"
 @layout AuthLayout
 
-<h1>Register</h1>
+<div class="register-container">
+
+    <div class="travel-section">
+
+        <Stamp Label="BALI"
+               Color="Stamp.StampColor.Lime"
+               Size="Stamp.StampSize.Large"
+               Rotation="6" />
+
+        <Stamp Label="KØBENHAVN"
+               Color="Stamp.StampColor.Cyan"
+               Size="Stamp.StampSize.Large"
+               Rotation="-4" />
+
+        <Stamp Label="ROMA"
+               Color="Stamp.StampColor.Pink"
+               Size="Stamp.StampSize.Large"
+               Rotation="-8" />
+
+    </div>
+
+    <div class="register-section card">
+
+        <div class="logo">
+            <span class="logo-icon">t.</span>
+            <h1>tagalong</h1>
+        </div>
+
+        <h2>Create account</h2>
+
+        <p class="register-description">
+            Your trips are private – only you and your travel group can see them.
+        </p>
+
+        <form class="register-form stack">
+
+            <FormField TValue="string"
+                       Label="Name"
+                       Id="name"
+                       ShowOptional="false">
+                <input type="text"
+                       id="name"
+                       placeholder="Your name"
+                       autocomplete="name" />
+            </FormField>
+
+            <FormField TValue="string"
+                       Label="Email"
+                       Id="email"
+                       ShowOptional="false">
+                <input type="email"
+                       id="email"
+                       placeholder="you@example.com"
+                       autocomplete="email" />
+            </FormField>
+
+            <FormField TValue="string"
+                       Label="Password"
+                       Id="password"
+                       ShowOptional="false">
+                <input type="password"
+                       id="password"
+                       placeholder="At least 8 characters"
+                       autocomplete="new-password" />
+            </FormField>
+
+            <FormField TValue="string"
+                       Label="Repeat password"
+                       Id="repeat-password"
+                       ShowOptional="false">
+                <input type="password"
+                       id="repeat-password"
+                       placeholder="••••••••"
+                       autocomplete="new-password" />
+            </FormField>
+
+            <button type="button" class="btn btn--primary btn--block">
+                Create account
+            </button>
+
+        </form>
+
+        <a href="/login" class="register-link">
+            Already have an account? Log in
+        </a>
+
+    </div>
+
+</div>

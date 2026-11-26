@@ -1,0 +1,140 @@
+.register-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 72px;
+    padding: var(--space-48);
+}
+
+.travel-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.travel-section ::deep .stamp + .stamp {
+    margin-left: -12px;
+}
+
+.register-section {
+    width: 100%;
+    max-width: 460px;
+    padding: 40px 36px;
+    border-radius: var(--radius-l);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    color: var(--color-primary);
+    margin-bottom: var(--space-8);
+}
+
+.logo-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-hard);
+    font-weight: 800;
+    font-size: var(--text-h2);
+}
+
+.register-section h1 {
+    color: var(--color-primary);
+    margin: 0;
+}
+
+.register-section h2 {
+    color: var(--color-text);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-4);
+}
+
+.register-description {
+    color: var(--color-text-muted);
+    font-size: var(--text-small);
+    line-height: 1.45;
+    margin-bottom: var(--space-8);
+    max-width: 34ch;
+}
+
+.register-form {
+    gap: var(--space-16);
+}
+
+.register-link {
+    text-align: center;
+    color: var(--color-primary);
+    font-size: var(--text-small);
+    font-weight: 600;
+    margin-top: var(--space-8);
+    text-decoration: none;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+/* Desktop finjustering */
+@media (max-width: 1100px) {
+    .register-container {
+        gap: var(--space-48);
+    }
+}
+
+/* Mobil */
+@media (max-width: 950px) {
+    .register-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: var(--space-24) var(--space-16);
+    }
+
+    .travel-section {
+        display: none;
+    }
+
+    .register-section {
+        max-width: 100%;
+        width: 100%;
+        padding: 0;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .logo {
+        margin-bottom: var(--space-16);
+    }
+
+    .register-section h2 {
+        margin-top: 0;
+        margin-bottom: var(--space-8);
+    }
+
+    .register-description {
+        max-width: 100%;
+        margin-bottom: var(--space-12);
+    }
+
+    .register-form {
+        gap: var(--space-12);
+    }
+
+    .register-link {
+        margin-top: var(--space-12);
+    }
+}
