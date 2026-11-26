@@ -1,68 +1,81 @@
-@page "/Login"
+@page "/login"
 @layout AuthLayout
 
 <div class="login-container">
-<div class="travel-section">
 
-    <Stamp Label="BALI"
-           Color="Stamp.StampColor.Lime"
-           Size="Stamp.StampSize.Large"
-           Rotation="6" />
-    
-    <Stamp Label="KØBENHAVEN"
-           Color="Stamp.StampColor.Cyan"
-           Size="Stamp.StampSize.Large"
-           Rotation="-4" />
-    
-    <Stamp Label="ROMA"
-           Color="Stamp.StampColor.Pink"
-           Size="Stamp.StampSize.Large"
-           Rotation="-8" />
+    <div class="travel-section">
 
-    <Stamp Label="NORGE"
-           Color="Stamp.StampColor.Lime"
-           Size="Stamp.StampSize.Large"
-           Rotation="5" />
-</div>
+        <Stamp Label="BALI"
+               Color="Stamp.StampColor.Lime"
+               Size="Stamp.StampSize.Large"
+               Rotation="6" />
 
-<div class="login-section">
+        <Stamp Label="KØBENHAVN"
+               Color="Stamp.StampColor.Cyan"
+               Size="Stamp.StampSize.Large"
+               Rotation="-4" />
 
-    <div class="logo">
-        <span class="logo-icon">t.</span>
-        <h1>tagalong</h1>
+        <Stamp Label="ROMA"
+               Color="Stamp.StampColor.Pink"
+               Size="Stamp.StampSize.Large"
+               Rotation="-8" />
+
+        <Stamp Label="NORGE"
+               Color="Stamp.StampColor.Lime"
+               Size="Stamp.StampSize.Large"
+               Rotation="5" />
+
     </div>
 
-    <p>Plan trips together – vote, split &amp; go.</p>
+    <div class="login-section card">
 
-    <form class="login-form">
-
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email"
-                   id="email"
-                   placeholder="you@example.com" />
+        <div class="logo">
+            <span class="logo-icon">t.</span>
+            <h1>tagalong</h1>
         </div>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password"
-                   id="password"
-                   placeholder="••••••••" />
-        </div>
+        <p>Plan trips together – vote, split &amp; go.</p>
 
-        <button type="button" class="login-button">
-            Log in
-        </button>
+        <form class="login-form stack">
 
-    </form>
+            <FormField TValue="string"
+                       Label="Email"
+                       Id="email"
+                       ShowOptional="false">
 
-    <button type="button" class="create-account">
-        Create account
-    </button>
+                <input type="email"
+                       id="email"
+                       placeholder="you@example.com"
+                       autocomplete="email" />
+
+            </FormField>
+
+            <FormField TValue="string"
+                       Label="Password"
+                       Id="password"
+                       ShowOptional="false">
+
+                <input type="password"
+                       id="password"
+                       placeholder="••••••••"
+                       autocomplete="current-password" />
+
+            </FormField>
+
+            <button type="button" class="btn btn--primary btn--block">
+                Log in
+            </button>
+
+        </form>
+
+        <a href="/register" class="btn btn--ghost btn--block">
+            Create account
+        </a>
+
+    </div>
 
 </div>
 
-</div>
 
 @code {
     

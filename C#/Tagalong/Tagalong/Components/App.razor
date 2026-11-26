@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@*
+    Root component of the Blazor Web App.
+    Defines the overall HTML structure, loads global stylesheets,
+    configures routing and interactive render modes,
+    and initializes the Blazor framework.
+*@
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,6 +16,8 @@
     <link rel="stylesheet" href="@Assets["lib/bootstrap/dist/css/bootstrap.min.css"]" />
     <link rel="stylesheet" href="@Assets["app.css"]" />
     <link rel="stylesheet" href="@Assets["Tagalong.styles.css"]" />
+    <link rel="stylesheet" href="@Assets["components.css"]" />
+    
     <ImportMap />
     <link rel="icon" type="image/png" href="favicon.png" />
     <HeadOutlet @rendermode="InteractiveAuto" />
