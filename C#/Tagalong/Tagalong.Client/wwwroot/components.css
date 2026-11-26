@@ -1,0 +1,204 @@
+/* Buttons (Primary / Secondary / Ghost) */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-8);
+    padding: var(--space-12) var(--space-24);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-hard);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn:hover {
+    text-decoration: none;
+}
+
+.btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--color-border);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn--primary {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+}
+
+.btn--secondary {
+    background: var(--color-accent-lime);
+    color: var(--color-text);
+}
+
+.btn--ghost {
+    background: transparent;
+    color: var(--color-primary);
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.btn--ghost:active {
+    transform: none;
+    box-shadow: none;
+}
+
+.btn--block {
+    width: 100%;
+}
+
+.btn--small {
+    padding: var(--space-8) var(--space-16);
+    font-size: var(--text-small);
+}
+
+/* Form fields – Figma: Input */
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+}
+
+.field__label {
+    font-size: var(--text-small);
+    font-weight: 600;
+}
+
+.field__label .required {
+    color: var(--color-primary);
+}
+
+.field__label .optional {
+    font-weight: 400;
+    color: var(--color-text-muted);
+}
+
+.input,
+.field input,
+.field textarea,
+.field select {
+    width: 100%;
+    padding: var(--space-12) var(--space-16);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+}
+
+.input::placeholder,
+.field input::placeholder,
+.field textarea::placeholder {
+    color: var(--color-text-muted);
+}
+
+.field__hint {
+    font-size: var(--text-caption);
+    color: var(--color-text-muted);
+}
+
+.form-row {
+    display: flex;
+    gap: var(--space-12);
+}
+
+.form-row > * {
+    flex: 1;
+}
+
+/* Cards */
+.card {
+    background: var(--color-surface);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-hard);
+    padding: var(--card-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+}
+
+.card--flat {                     /* thin outline, no shadow – calm sections */
+    border-width: var(--border-thin);
+    box-shadow: none;
+}
+
+.card--selected {
+    background: var(--color-primary-soft);
+}
+
+.card--warning {
+    background: var(--color-warning-soft);
+}
+
+.card--lime {
+    background: var(--color-success-soft);
+}
+
+/* Badges – Figma: Badge (Info / Success / Warning / Danger) */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-4) var(--space-12);
+    border: var(--border-thin) solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: var(--text-caption);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.badge--info {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+}
+
+.badge--success {
+    background: var(--color-accent-lime);
+}
+
+.badge--warning {
+    background: var(--color-warning-soft);
+    color: var(--color-warning);
+}
+
+.badge--danger {
+    background: var(--color-accent-pink);
+}
+
+/* Progress bar (budget) */
+.progress {
+    height: 14px;
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-full);
+    background: var(--color-wire-light);
+    overflow: hidden;
+}
+
+.progress__bar {
+    height: 100%;
+    background: var(--color-accent-lime);
+    border-radius: var(--radius-full);
+}
+
+.progress--over .progress__bar {
+    background: var(--color-accent-cherry);
+}
+
+/* Empty / loading states */
+.empty-state {
+    padding: var(--space-32) var(--space-16);
+    text-align: center;
+    color: var(--color-text-muted);
+}

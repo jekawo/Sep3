@@ -1,0 +1,8 @@
+@page "/invite/{Code}"
+@layout AuthLayout
+
+<h1>InviteLanding</h1>
+
+@code {
+    [Parameter] public string Code { get; set; } = string.Empty;
+}
