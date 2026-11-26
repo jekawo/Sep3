@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Tagalong.Client.Services;
-using Tagalong.Client.Services.Interfaces;
 
 namespace Tagalong.Client;
 

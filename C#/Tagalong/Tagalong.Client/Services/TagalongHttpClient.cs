@@ -10,7 +10,6 @@ public class TagalongHttpClient : ITagalongApi
     public TagalongHttpClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        _httpClient.BaseAddress = new Uri("https://localhost:7092");
     }
 
     public async Task SendActivity(string activity) => _ = await _httpClient.PostAsJsonAsync("/Activity", activity);
