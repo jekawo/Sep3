@@ -1,28 +1,28 @@
 @page "/Login"
-<h3>Login</h3>
+@layout AuthLayout
 
 <div class="login-container">
 <div class="travel-section">
 
-<div class="travel-card bali">
-    <h3>BALI</h3>
-    <div class="card-image"></div>
-</div>
-<div class="travel-card copenhagen">
-    <h3>KØBENHAVN</h3>
-    <div class="card-image"></div>
-</div>
+    <Stamp Label="BALI"
+           Color="Stamp.StampColor.Lime"
+           Size="Stamp.StampSize.Large"
+           Rotation="6" />
+    
+    <Stamp Label="KØBENHAVEN"
+           Color="Stamp.StampColor.Cyan"
+           Size="Stamp.StampSize.Large"
+           Rotation="-4" />
+    
+    <Stamp Label="ROMA"
+           Color="Stamp.StampColor.Pink"
+           Size="Stamp.StampSize.Large"
+           Rotation="-8" />
 
-<div class="travel-card rome">
-    <h3>ROMA</h3>
-    <div class="card-image"></div>
-</div>
-
-<div class="travel-card norway">
-    <h3>NORGE</h3>
-    <div class="card-image"></div>
-</div>
-
+    <Stamp Label="NORGE"
+           Color="Stamp.StampColor.Lime"
+           Size="Stamp.StampSize.Large"
+           Rotation="5" />
 </div>
 
 <div class="login-section">
