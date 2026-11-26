@@ -1,4 +1,4 @@
-using Tagalong.Client.Pages;
+using Tagalong.Client.Components.Pages;
 using Tagalong.Client.Services;
 using Tagalong.Components;
 
@@ -40,7 +40,7 @@ public class Program
         app.MapRazorComponents<App>()
             .AddInteractiveServerRenderMode()
             .AddInteractiveWebAssemblyRenderMode()
-            .AddAdditionalAssemblies(typeof(Tagalong.Client._Imports).Assembly);
+            .AddAdditionalAssemblies(typeof(Tagalong.Client.Components._Imports).Assembly);
 
         app.Run();
     }

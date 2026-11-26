@@ -1,0 +1,42 @@
+@using System.Globalization
+
+<div class="stamp stamp--@SizeClass stamp--@ColorClass"
+     style="--stamp-rotate: @Rotation.ToString(CultureInfo.InvariantCulture)deg"
+     aria-hidden="true">
+    <span class="stamp__label">@Label</span>
+    <div class="stamp__picture"></div>
+</div>
+
+@code {
+    public enum StampColor { Pink, Cyan, Lime, Cherry }
+
+    public enum StampSize { Small, Medium, Large }
+
+    [Parameter] public string Label { get; set; } = "";
+
+    [Parameter] public StampColor Color { get; set; } = StampColor.Pink;
+
+    [Parameter] public StampSize Size { get; set; } = StampSize.Medium;
+    
+    [Parameter] public int Rotation { get; set; } = -6;
+
+    private string SizeClass => Size.ToString().ToLowerInvariant();
+
+    private string ColorClass => Color.ToString().ToLowerInvariant();
+
+    private static readonly StampColor[] Colors = Enum.GetValues<StampColor>();
+
+    // Same trip id always gives the same colour.
+    public static StampColor ColorFor(int id)
+    {
+        var index = ((id % Colors.Length) + Colors.Length) % Colors.Length; // safe for negative ids
+        return Colors[index];
+    }
+
+    // "Berlin, Tyskland" → "BERLIN". Falls back when destination is empty
+    public static string LabelFor(string? destination, string fallback)
+    {
+        var source = string.IsNullOrWhiteSpace(destination) ? fallback : destination;
+        return (source ?? "").Split(',')[0].Trim().ToUpperInvariant();
+    }
+}

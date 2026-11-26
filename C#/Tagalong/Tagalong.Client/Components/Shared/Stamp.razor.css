@@ -1,0 +1,66 @@
+.stamp {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-shrink: 0;
+    padding: var(--space-8);
+    background: var(--stamp-color);
+    border: 5px dashed white; /* perforated edge */
+    box-shadow: var(--shadow-hard);
+    transform: rotate(var(--stamp-rotate, -6deg));
+    overflow: hidden;
+}
+
+.stamp__label {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    color: var(--color-text);
+}
+
+.stamp__picture {
+    flex: 1;
+    border-radius: var(--radius-s);
+    background: rgba(255, 255, 255, 0.55);
+}
+
+/* Colours */
+.stamp--pink   { --stamp-color: var(--color-accent-pink); }
+.stamp--cyan   { --stamp-color: var(--color-accent-cyan); }
+.stamp--lime   { --stamp-color: var(--color-accent-lime); }
+.stamp--cherry { --stamp-color: var(--color-accent-cherry); }
+
+.stamp--cyan .stamp__label,
+.stamp--cherry .stamp__label {
+    color: white;
+}
+
+/* Sizes */
+.stamp--small {
+    width: 52px;
+    height: 66px;
+    border-width: 3px;
+}
+
+.stamp--small .stamp__label {
+    font-size: 8px;
+}
+
+.stamp--medium {
+    width: 86px;
+    height: 108px;
+}
+
+.stamp--medium .stamp__label {
+    font-size: var(--text-caption);
+}
+
+.stamp--large {
+    width: 150px;
+    height: 190px;
+    border-width: 8px;
+    padding: var(--space-16);
+}
+
+.stamp--large .stamp__label {
+    font-size: var(--text-h3);
+}

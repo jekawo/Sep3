@@ -1,0 +1,37 @@
+@page "/dev/components"
+@using Microsoft.AspNetCore.Components.WebAssembly.Hosting
+@using Microsoft.Extensions.Hosting
+@inject IServiceProvider Services
+
+@if (!isDevelopment)
+{
+    <p>Not available.</p>
+    return;
+}
+
+<div class="page stack--lg">
+    <h1>Component gallery</h1>
+    <p class="text-muted">Development only. Each section lives in its own file in Dev/Examples.</p>
+
+    <StampExamples />
+    <BadgeExamples />
+    <FormFieldExamples />
+    <TripCardExamples />
+    <InviteCardExamples />
+    <TripSwitcherExamples />
+    <ActivityCardExamples />
+    <VoteButtonExamples />
+</div>
+
+@code {
+    private bool isDevelopment;
+
+    protected override void OnInitialized()
+    {
+        // In the browser (WebAssembly) the environment is IWebAssemblyHostEnvironment.
+        // During server prerendering only IHostEnvironment exists, so check both.
+        isDevelopment = Services.GetService<IWebAssemblyHostEnvironment>()?.IsDevelopment()
+                        ?? Services.GetService<IHostEnvironment>()?.IsDevelopment()
+                        ?? false;
+    }
+}
