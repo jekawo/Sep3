@@ -1,7 +1,156 @@
 @page "/trips/{TripId:int}/activities/new"
+@using Tagalong.Client.Services.Interfaces
+@using Tagalong.Contracts.DTOs
+@inject IActivityService ActivityService
 
-<h1>AddActivity</h1>
+<div class="page page--form">
+    @* TODO: Add TripSwitcher when implemented *@
+
+    <h1>Add activity</h1>
+
+    <EditForm Model="@request"
+              OnValidSubmit="CreateActivityAsync"
+              class="stack">
+
+        <DataAnnotationsValidator/>
+
+        <FormField TValue="string"
+                   Label="Activity name"
+                   Id="activityName"
+                   Required="true"
+                   For="@(() => request.Name)">
+
+            <InputText id="activityName"
+                       @bind-Value="request.Name"
+                       placeholder="e.g. Eiffel Tower"/>
+        </FormField>
+
+        <FormField TValue="string"
+                   Label="Description"
+                   Id="description"
+                   For="@(() => request.Description)">
+
+            <InputTextArea id="description"
+                           @bind-Value="request.Description"
+                           placeholder="Why this place?"/>
+        </FormField>
+
+        <div class="date-time-row">
+            <FormField TValue="DateOnly?"
+                       Label="Date"
+                       Id="date"
+                       For="@(() => request.Date)">
+
+                <InputDate id="date"
+                           @bind-Value="request.Date"/>
+            </FormField>
+
+            <div class="field time-field">
+                <label class="field__label" for="startTime">
+                    Time <span class="optional">(optional)</span>
+                </label>
+
+                <div class="time-inputs">
+                    <InputDate id="startTime"
+                               aria-label="Start time"
+                               Type="InputDateType.Time"
+                               @bind-Value="request.StartTime"/>
+                    <span>–</span>
+
+                    <InputDate id="endTime"
+                               aria-label="End time"
+                               Type="InputDateType.Time"
+                               @bind-Value="request.EndTime"/>
+                </div>
+            </div>
+        </div>
+
+        <FormField TValue="string"
+                   Label="Location"
+                   Id="location"
+                   For="@(() => request.Location)">
+
+            <InputText id="location"
+                       @bind-Value="request.Location"
+                       placeholder="Address or place"/>
+        </FormField>
+
+        <FormField TValue="decimal?"
+                   Label="Price per person in kr"
+                   Id="price"
+                   For="@(() => request.PricePerPerson)">
+
+            <InputNumber id="price"
+                         @bind-Value="request.PricePerPerson"
+                         placeholder="0"
+                         min="0"/>
+        </FormField>
+
+        <FormField TValue="string"
+                   Label="Category"
+                   For="@(() => request.Category)">
+
+            <div class="category-options">
+                @foreach (var category in categories)
+                {
+                    <button type="button"
+                            class="@(request.Category == category
+                                       ? "category-button selected"
+                                       : "category-button")"
+                            aria-pressed="@(request.Category == category)"
+                            @onclick="() => SelectCategory(category)">
+                        @category
+                    </button>
+                }
+            </div>
+        </FormField>
+
+        <p class="text-caption text-muted">* Required</p>
+        
+        <button type="submit" class="btn btn--primary btn--block">
+            Suggest activity
+        </button>
+        
+        <p>@message</p>
+    </EditForm>
+
+</div>
 
 @code {
     [Parameter] public int TripId { get; set; }
+
+    private CreateActivityRequest request = new();
+
+    private readonly string[] categories =
+    {
+        "Sightseeing",
+        "Food",
+        "Nightlife",
+        "Outdoor",
+        "Culture"
+    };
+
+    private void SelectCategory(string category)
+    {
+        request.Category = request.Category == category
+            ? null
+            : category;
+    }
+
+    private string message = "";
+
+    private async Task CreateActivityAsync()
+    {
+        try
+        {
+            await ActivityService.CreateActivityAsync(TripId, request);
+
+            message = "Activity created";
+        }
+        catch (Exception e)
+        {
+            message = e.Message;
+        }
+    }
+
 }
