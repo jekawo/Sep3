@@ -1,1 +1,14 @@
-@* TODO: implement Badge *@
+@* Badge – small pill label. Figma: Components → "Badge" (Info / Success / Warning / Danger)
+   e.g. "Pending", "Time overlap", "Sightseeing" *@
+
+<span class="badge badge--@Type.ToString().ToLowerInvariant()">@ChildContent</span>
+
+@code {
+    public enum BadgeType { Info, Success, Warning, Danger }
+
+    /// <summary>Figma: Type. Info = cherry tint, Success = lime, Warning = amber, Danger = pink.</summary>
+    [Parameter] public BadgeType Type { get; set; } = BadgeType.Info;
+
+    /// <summary>The text inside the badge.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}
