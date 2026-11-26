@@ -455,3 +455,6 @@ FodyWeavers.xsd
 
 # Official VS Code C# Dev Kit Extension exclusion
 #*.lscache
+
+# JetBrains IDE (Rider/IntelliJ) settings
+.idea/
