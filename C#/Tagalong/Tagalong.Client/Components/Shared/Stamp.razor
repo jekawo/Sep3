@@ -33,10 +33,14 @@
         return Colors[index];
     }
 
-    // "Berlin, Tyskland" → "BERLIN". Falls back when destination is empty
+    // "Berlin, Tyskland" → "BERLIN". Without a destination, uses the first word
+    // of the fallback: "Weekend somewhere" → "WEEKEND".
     public static string LabelFor(string? destination, string fallback)
     {
-        var source = string.IsNullOrWhiteSpace(destination) ? fallback : destination;
-        return (source ?? "").Split(',')[0].Trim().ToUpperInvariant();
+        if (!string.IsNullOrWhiteSpace(destination))
+            return destination.Split(',')[0].Trim().ToUpperInvariant();
+
+        var words = (fallback ?? "").Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries);
+        return words.Length > 0 ? words[0].ToUpperInvariant() : "";
     }
 }
