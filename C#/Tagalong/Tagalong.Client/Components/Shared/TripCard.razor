@@ -5,7 +5,11 @@
 
         @if (ShowSelect)
         {
-            if (IsSelected)
+            if (IsSelected && OnUnselect.HasDelegate)
+            {
+                <button type="button" class="trip-card__select trip-card__select--on" title="Unselect" @onclick="OnUnselect">✓ Selected</button>
+            }
+            else if (IsSelected)
             {
                 <span class="trip-card__select trip-card__select--on">✓ Selected</span>
             }
@@ -75,6 +79,9 @@
 
     /// <summary>Called when the user taps "○ Select" on a trip that isn't selected.</summary>
     [Parameter] public EventCallback OnSelect { get; set; }
+
+    /// <summary>Called when the user taps '✓ Selected' on the selected trip.</summary>
+    [Parameter] public EventCallback OnUnselect { get; set; }
 
 
     // ----- Helpers -----

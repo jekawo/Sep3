@@ -1,0 +1,101 @@
+/* TripSwitcher – slim row "Berlin juleshopping · Change ▾", opens into a list of trips */
+
+.trip-switcher {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    padding: var(--space-8) var(--space-16);
+    background: var(--color-surface);
+    border: var(--border-thin) solid var(--color-border);
+    border-radius: var(--radius-lg);
+}
+
+.trip-switcher__current {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+}
+
+.trip-switcher__name {
+    flex: 1;
+    min-width: 0;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.trip-switcher__toggle {
+    padding: var(--space-8) var(--space-4);
+    border: none;
+    background: none;
+    color: var(--color-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-small);
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.trip-switcher__toggle:hover {
+    text-decoration: underline;
+}
+
+/* Open list */
+.trip-switcher__list {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-8) 0 var(--space-4);
+    border-top: var(--border-thin) solid var(--color-wire-light);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.trip-switcher__option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    padding: var(--space-12);
+    border: none;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--color-text);
+    font-family: var(--font-body);
+    text-align: left;
+    cursor: pointer;
+}
+
+.trip-switcher__option:hover {
+    background: var(--color-wire-light);
+}
+
+.trip-switcher__option--selected,
+.trip-switcher__option--selected:hover {
+    background: var(--color-primary-soft);
+}
+
+.trip-switcher__option-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.trip-switcher__option-name {
+    font-size: var(--text-body);
+    font-weight: 600;
+}
+
+.trip-switcher__option-dates {
+    font-size: var(--text-caption);
+    color: var(--color-text-muted);
+}
+
+.trip-switcher__check {
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: var(--text-h3);
+}

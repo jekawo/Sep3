@@ -5,15 +5,19 @@
 
     <div class="card-grid">
         <div class="stack">
-            <p class="text-small text-muted">Selected, all buttons (My trips)</p>
-            <TripCard Trip="berlin" IsSelected="true" ShowSelect="true" ShowEdit="true" ShowInvite="true" />
+            <p class="text-small text-muted">Click Select / Selected to try it</p>
+            <TripCard Trip="berlin" IsSelected="@(selectedId == berlin.Id)"
+                      ShowSelect="true" ShowEdit="true" ShowInvite="true"
+                      OnSelect="() => selectedId = berlin.Id"
+                      OnUnselect="() => selectedId = null" />
         </div>
 
         <div class="stack">
-            <p class="text-small text-muted">Not selected – click "Select" to try it</p>
+            <p class="text-small text-muted">Click Select / Selected to try it</p>
             <TripCard Trip="norge" IsSelected="@(selectedId == norge.Id)"
                       ShowSelect="true" ShowEdit="true" ShowInvite="true"
-                      OnSelect="() => selectedId = norge.Id" />
+                      OnSelect="() => selectedId = norge.Id"
+                      OnUnselect="() => selectedId = null" />
         </div>
 
         <div class="stack">
@@ -29,7 +33,7 @@
 </section>
 
 @code {
-    private int? selectedId;
+    private int? selectedId = 1;
 
     // Fake data – no API needed.
 

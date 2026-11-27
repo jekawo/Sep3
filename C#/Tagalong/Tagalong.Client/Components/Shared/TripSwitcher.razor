@@ -1,1 +1,65 @@
-@* TODO: implement TripSwitcher *@
+<div class="trip-switcher @(isOpen ? "trip-switcher--open" : "")">
+
+    <div class="trip-switcher__current">
+        <span class="trip-switcher__name">@(SelectedTrip?.Name ?? "No trip selected")</span>
+
+        @if (Trips.Count > 1)
+        {
+            <button type="button"
+                    class="trip-switcher__toggle"
+                    aria-expanded="@(isOpen ? "true" : "false")"
+                    @onclick="() => isOpen = !isOpen">
+                @(isOpen ? "Close ▴" : "Change ▾")
+            </button>
+        }
+    </div>
+
+    @if (isOpen)
+    {
+        <ul class="trip-switcher__list">
+            @foreach (var trip in Trips)
+            {
+                var isSelected = trip.Id == SelectedTripId;
+                <li>
+                    <button type="button"
+                            class="trip-switcher__option @(isSelected ? "trip-switcher__option--selected" : "")"
+                            @onclick="() => Choose(trip)">
+                        <span class="trip-switcher__option-text">
+                            <span class="trip-switcher__option-name">@trip.Name</span>
+                            @if (TripFormatting.DateRange(trip.StartDate, trip.EndDate) is { } dates)
+                            {
+                                <span class="trip-switcher__option-dates">@dates</span>
+                            }
+                        </span>
+                        @if (isSelected)
+                        {
+                            <span class="trip-switcher__check" aria-label="Selected">✓</span>
+                        }
+                    </button>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+@code {
+    /// <summary>All the user's trips, in the order to show them (soonest first).</summary>
+    [Parameter, EditorRequired] public List<TripDto> Trips { get; set; } = new();
+
+    /// <summary>The trip the page is currently showing.</summary>
+    [Parameter] public int? SelectedTripId { get; set; }
+
+    /// <summary>Called when the user picks a trip. The page navigates to that trip.</summary>
+    [Parameter] public EventCallback<TripDto> OnTripSelected { get; set; }
+
+    private bool isOpen;
+
+    private TripDto? SelectedTrip => Trips.FirstOrDefault(t => t.Id == SelectedTripId);
+
+    private async Task Choose(TripDto trip)
+    {
+        isOpen = false;
+        if (trip.Id != SelectedTripId)
+            await OnTripSelected.InvokeAsync(trip);
+    }
+}

@@ -29,7 +29,7 @@
     background: var(--color-primary);
     color: var(--color-on-primary);
     box-shadow: var(--shadow-hard);
-    cursor: default;
+    cursor: pointer;
 }
 
 /* "✎ Edit" – top right */

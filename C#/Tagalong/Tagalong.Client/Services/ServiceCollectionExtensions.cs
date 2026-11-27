@@ -7,10 +7,8 @@ public static class ServiceCollectionExtensions
     private static readonly Uri ApiBaseAddress =
         new Uri("https://localhost:7092");
 
-    /// <summary>
-    /// Registers the client services. Call from both the WebAssembly and the server host,
-    /// since InteractiveAuto components run (and prerender) in either.
-    /// </summary>
+    // Registers the client services. Call from both the WebAssembly and the server host,
+    
     public static IServiceCollection AddTagalongClientServices(
         this IServiceCollection services)
     {
@@ -18,6 +16,7 @@ public static class ServiceCollectionExtensions
             client.BaseAddress = ApiBaseAddress);
         services.AddHttpClient<IActivityService, HttpActivityService>(client =>
             client.BaseAddress = ApiBaseAddress);
+        services.AddScoped<SelectedTripState>();
         return services;
     }
 }
