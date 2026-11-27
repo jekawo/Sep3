@@ -32,43 +32,68 @@
     private int? selectedId;
 
     // Fake data – no API needed.
-    // TripDto(Id, Name, Destination, StartDate, EndDate, Budget, OrganizerId, Participants)
-    // UserSummaryDto(Id, Name)
 
-    private TripDto berlin = new(1, "Berlin juleshopping", "Berlin, Tyskland",
-        new DateOnly(2026, 12, 5), new DateOnly(2026, 12, 7), null, 1,
-        new()
+    private TripDto berlin = new TripDto
+    {
+        Id = 1,
+        Name = "Berlin juleshopping",
+        Destination = "Berlin, Tyskland",
+        StartDate = new DateOnly(2026, 12, 5),
+        EndDate = new DateOnly(2026, 12, 7),
+        OrganizerId = 1,
+        Participants = new()
         {
-            new(1, "Katalina Haritova"),
-            new(2, "Emre Kekec"),
-            new(3, "Hatice Cevirici")
-        });
+            new UserSummaryDto { Id = 1, Name = "Katalina Haritova" },
+            new UserSummaryDto { Id = 2, Name = "Emre Kekec" },
+            new UserSummaryDto { Id = 3, Name = "Hatice Cevirici" }
+        }
+    };
 
     // 7 people → shows 5 avatars + "+2"; dates across two months
-    private TripDto norge = new(2, "Roadtrip Norge", "Bergen, Norge",
-        new DateOnly(2027, 6, 28), new DateOnly(2027, 7, 4), 12000, 2,
-        new()
+    private TripDto norge = new TripDto
+    {
+        Id = 2,
+        Name = "Roadtrip Norge",
+        Destination = "Bergen, Norge",
+        StartDate = new DateOnly(2027, 6, 28),
+        EndDate = new DateOnly(2027, 7, 4),
+        Budget = 12000,
+        OrganizerId = 2,
+        Participants = new()
         {
-            new(2, "Emre Kekec"),
-            new(4, "Jesper Wohlgemuth"),
-            new(5, "Rumeysa Erdogan"),
-            new(1, "Katalina Haritova"),
-            new(3, "Hatice Cevirici"),
-            new(6, "Ada Example"),
-            new(7, "Bo Example")
-        });
+            new UserSummaryDto { Id = 2, Name = "Emre Kekec" },
+            new UserSummaryDto { Id = 4, Name = "Jesper Wohlgemuth" },
+            new UserSummaryDto { Id = 5, Name = "Rumeysa Erdogan" },
+            new UserSummaryDto { Id = 1, Name = "Katalina Haritova" },
+            new UserSummaryDto { Id = 3, Name = "Hatice Cevirici" },
+            new UserSummaryDto { Id = 6, Name = "Ada Example" },
+            new UserSummaryDto { Id = 7, Name = "Bo Example" }
+        }
+    };
 
-    private TripDto kobenhavn = new(3, "Weekend i København", "København, Danmark",
-        new DateOnly(2027, 6, 12), new DateOnly(2027, 6, 14), null, 1,
-        new()
+    private TripDto kobenhavn = new TripDto
+    {
+        Id = 3,
+        Name = "Weekend i København",
+        Destination = "København, Danmark",
+        StartDate = new DateOnly(2027, 6, 12),
+        EndDate = new DateOnly(2027, 6, 14),
+        OrganizerId = 1,
+        Participants = new()
         {
-            new(1, "Katalina Haritova"),
-            new(2, "Emre Kekec"),
-            new(3, "Hatice Cevirici"),
-            new(4, "Jesper Wohlgemuth")
-        });
+            new UserSummaryDto { Id = 1, Name = "Katalina Haritova" },
+            new UserSummaryDto { Id = 2, Name = "Emre Kekec" },
+            new UserSummaryDto { Id = 3, Name = "Hatice Cevirici" },
+            new UserSummaryDto { Id = 4, Name = "Jesper Wohlgemuth" }
+        }
+    };
 
     // No destination → stamp uses the trip name; no dates → no meta line
-    private TripDto empty = new(4, "Weekend somewhere", null, null, null, null, 1,
-        new() { new(1, "Katalina Haritova") });
+    private TripDto empty = new TripDto
+    {
+        Id = 4,
+        Name = "Weekend somewhere",
+        OrganizerId = 1,
+        Participants = new() { new UserSummaryDto { Id = 1, Name = "Katalina Haritova" } }
+    };
 }

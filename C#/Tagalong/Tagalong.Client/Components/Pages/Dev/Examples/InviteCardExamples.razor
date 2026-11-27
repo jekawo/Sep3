@@ -22,21 +22,42 @@
 
     private void Reset()
     {
-        // InviteDto(Id, Trip, InvitedBy, InvitedEmailOrUsername, Status, CreatedAt)
         invites = new()
         {
-            new(1,
-                new TripDto(3, "Weekend i København", "København, Danmark",
-                    new DateOnly(2027, 6, 12), new DateOnly(2027, 6, 14), null, 1,
-                    new() { new(1, "Katalina Haritova") }),
-                new UserSummaryDto(1, "Katalina"),
-                "you@example.com", "Pending", DateTime.Now),
+            new InviteDto
+            {
+                Id = 1,
+                Trip = new TripDto
+                {
+                    Id = 3,
+                    Name = "Weekend i København",
+                    Destination = "København, Danmark",
+                    StartDate = new DateOnly(2027, 6, 12),
+                    EndDate = new DateOnly(2027, 6, 14),
+                    OrganizerId = 1,
+                    Participants = new() { new UserSummaryDto { Id = 1, Name = "Katalina Haritova" } }
+                },
+                InvitedBy = new UserSummaryDto { Id = 1, Name = "Katalina" },
+                InvitedEmailOrUsername = "you@example.com",
+                Status = "Pending",
+                CreatedAt = DateTime.Now
+            },
 
-            new(2,
-                new TripDto(4, "En meget lang turnavn der skal kunne wrappe pænt", null, null, null, null, 2,
-                    new() { new(2, "Emre Kekec") }),
-                new UserSummaryDto(2, "Emre"),
-                "you@example.com", "Pending", DateTime.Now)
+            new InviteDto
+            {
+                Id = 2,
+                Trip = new TripDto
+                {
+                    Id = 4,
+                    Name = "En meget lang turnavn der skal kunne wrappe pænt",
+                    OrganizerId = 2,
+                    Participants = new() { new UserSummaryDto { Id = 2, Name = "Emre Kekec" } }
+                },
+                InvitedBy = new UserSummaryDto { Id = 2, Name = "Emre" },
+                InvitedEmailOrUsername = "you@example.com",
+                Status = "Pending",
+                CreatedAt = DateTime.Now
+            }
         };
     }
 }
