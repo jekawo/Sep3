@@ -1,0 +1,40 @@
+/* ActivityCard – calm card: thin outline, no shadow (.card .card--flat from components.css).
+   Voted = cherry outline, overlap = amber background. */
+
+.activity-card {
+    gap: var(--space-8);
+}
+
+.activity-card--voted {
+    border-color: var(--color-primary);
+}
+
+.activity-card--overlap {
+    background: var(--color-warning-soft);
+    border-color: var(--color-warning);
+}
+
+.activity-card__header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-8);
+}
+
+.activity-card__header h3 {
+    flex: 1;
+    min-width: 0;
+}
+
+.activity-card__footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    padding-top: var(--space-4);
+}
+
+.activity-card__votes {
+    flex: 1;
+    min-width: 0;
+    font-size: var(--text-small);
+    font-weight: 600;
+}

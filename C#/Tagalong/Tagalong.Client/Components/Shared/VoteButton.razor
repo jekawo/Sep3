@@ -1,1 +1,22 @@
-@* TODO: implement VoteButton *@
+<button type="button"
+        class="vote-button @(HasVoted ? "vote-button--voted" : "")"
+        aria-pressed="@(HasVoted ? "true" : "false")"
+        disabled="@Disabled"
+        @onclick="OnToggle">
+    <span class="vote-button__label">@(HasVoted ? "Voted" : "Vote")</span>
+    <span class="vote-button__count">@Count</span>
+</button>
+
+@code {
+    /// <summary>Total number of votes on the activity (including yours if you voted).</summary>
+    [Parameter] public int Count { get; set; }
+
+    /// <summary>true = the logged-in user has voted → filled cherry "Voted" state.</summary>
+    [Parameter] public bool HasVoted { get; set; }
+
+    /// <summary>Disable while the vote is being saved, so a double click doesn't vote twice.</summary>
+    [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>Called on click. The parent decides: vote if not voted, remove the vote if voted.</summary>
+    [Parameter] public EventCallback OnToggle { get; set; }
+}

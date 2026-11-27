@@ -1,5 +1,5 @@
 using System.Globalization;
-using Tagalong.Client.Models;
+using Tagalong.Contracts.DTOs;
 
 namespace Tagalong.Client.Helpers;
 

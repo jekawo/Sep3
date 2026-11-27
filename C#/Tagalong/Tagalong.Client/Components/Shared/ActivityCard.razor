@@ -1,1 +1,97 @@
-@* TODO: implement ActivityCard *@
+<article class="card card--flat activity-card
+                @(HasVoted ? "activity-card--voted" : "")
+                @(HasOverlap ? "activity-card--overlap" : "")">
+
+    <div class="activity-card__header">
+        <h3>@Activity.Name</h3>
+        @if (HasOverlap)
+        {
+            <Badge Type="Badge.BadgeType.Warning">Time overlap</Badge>
+        }
+    </div>
+
+    @if (When is not null)
+    {
+        <p class="text-small text-muted">@When</p>
+    }
+
+    @if (ShowDetails && Details is not null)
+    {
+        <p class="text-small text-muted">@Details</p>
+    }
+
+    <p class="text-small text-muted">Suggested by @SuggestedByText</p>
+
+    <div class="activity-card__footer">
+        @if (OrderedVoters.Count > 0)
+        {
+            <div class="avatar-stack">
+                @foreach (var voter in OrderedVoters.Take(MaxAvatars))
+                {
+                    <Avatar Name="@voter.Name" IsYou="@(voter.Id == CurrentUserId)" Small="true" />
+                }
+            </div>
+        }
+
+        <span class="activity-card__votes">@VotesLabel</span>
+
+        <VoteButton Count="Activity.VoteCount"
+                    HasVoted="HasVoted"
+                    Disabled="IsVoting"
+                    OnToggle="OnToggleVote" />
+    </div>
+</article>
+
+@code {
+    // ----- Parameters -----
+
+    /// <summary>The activity to show.</summary>
+    [Parameter, EditorRequired] public ActivityDto Activity { get; set; } = default!;
+
+    /// <summary>The logged-in user's id – used to show "You" first and to know if you voted.</summary>
+    [Parameter, EditorRequired] public int CurrentUserId { get; set; }
+
+    /// <summary>Figma: Overlap = Yes. The page works this out by comparing the trip's activity times.</summary>
+    [Parameter] public bool HasOverlap { get; set; }
+
+    /// <summary>Show the location · price line (hidden by default to keep the list calm).</summary>
+    [Parameter] public bool ShowDetails { get; set; }
+
+    /// <summary>true while the vote is being saved – disables the VoteButton.</summary>
+    [Parameter] public bool IsVoting { get; set; }
+
+    /// <summary>Called when the VoteButton is clicked. The page votes or removes the vote.</summary>
+    [Parameter] public EventCallback OnToggleVote { get; set; }
+
+
+    // ----- Helpers -----
+
+    private const int MaxAvatars = 4;
+
+    private List<UserSummaryDto> Voters => Activity.Voters ?? new();
+
+    /// Worked out from the voter list, so it is also right after a live SignalR update.
+    private bool HasVoted => Voters.Any(v => v.Id == CurrentUserId);
+
+    /// You first (only if you voted), then everyone else in the order the API sent them.
+    private List<UserSummaryDto> OrderedVoters =>
+        Voters.OrderBy(v => v.Id == CurrentUserId ? 0 : 1).ToList();
+
+    /// "You + 3 voted", "You voted", "3 voted", "No votes yet"
+    private string VotesLabel
+    {
+        get
+        {
+            var count = Activity.VoteCount;
+            if (HasVoted)
+                return count > 1 ? $"You + {count - 1} voted" : "You voted";
+            return count == 0 ? "No votes yet" : $"{count} voted";
+        }
+    }
+
+    private string SuggestedByText =>
+        Activity.SuggestedBy.Id == CurrentUserId ? "you" : Activity.SuggestedBy.Name;
+
+    private string? When => ActivityFormatting.When(Activity);
+    private string? Details => ActivityFormatting.Details(Activity);
+}

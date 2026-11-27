@@ -1,4 +1,89 @@
 <section class="stack">
     <h2>ActivityCard</h2>
-    <p class="text-muted">TODO: add examples when the component is built.</p>
+    <p class="text-small text-muted">You are "Rumeysa" (id 5). Click Vote / Voted to toggle – the "You" avatar and the label update.</p>
+
+    <div class="card-grid">
+        @foreach (var item in items)
+        {
+            <div class="stack">
+                <p class="text-small text-muted">@item.Caption</p>
+                <ActivityCard Activity="item.Activity"
+                              CurrentUserId="me.Id"
+                              HasOverlap="item.Overlap"
+                              ShowDetails="item.Details"
+                              OnToggleVote="() => Toggle(item)" />
+            </div>
+        }
+    </div>
 </section>
+
+@code {
+    private readonly UserSummaryDto me = new UserSummaryDto { Id = 5, Name = "Rumeysa Erdogan" };
+
+    private static readonly UserSummaryDto emre = new UserSummaryDto { Id = 2, Name = "Emre Kekec" };
+    private static readonly UserSummaryDto katalina = new UserSummaryDto { Id = 1, Name = "Katalina Haritova" };
+    private static readonly UserSummaryDto hatice = new UserSummaryDto { Id = 3, Name = "Hatice Cevirici" };
+    private static readonly UserSummaryDto jesper = new UserSummaryDto { Id = 4, Name = "Jesper Wohlgemuth" };
+
+    private class Item
+    {
+        public required string Caption { get; init; }
+        public required ActivityDto Activity { get; set; }
+        public bool Overlap { get; init; }
+        public bool Details { get; init; }
+    }
+
+    private List<Item> items = new();
+
+    protected override void OnInitialized()
+    {
+        items = new()
+        {
+            new() { Caption = "Voted by you (You first)",
+                    Activity = Make(1, "Christmas market", new(2026, 12, 5), new(16, 0), new(19, 0),
+                                    "Gendarmenmarkt", 0, emre, new() { me, katalina, hatice, jesper }) },
+
+            new() { Caption = "Not voted, others have",
+                    Activity = Make(2, "TV Tower (Fernsehturm)", new(2026, 12, 6), new(11, 0), new(12, 30),
+                                    "Alexanderplatz", 25, katalina, new() { emre, hatice, jesper }) },
+
+            new() { Caption = "Time overlap + details shown",
+                    Activity = Make(3, "Museum Island", new(2026, 12, 5), new(15, 0), new(18, 0),
+                                    "Bodestraße 1", 19, jesper, new() { hatice }),
+                    Overlap = true, Details = true },
+
+            new() { Caption = "Suggested by you, no votes, no date/time",
+                    Activity = Make(4, "Find a good currywurst", null, null, null,
+                                    null, null, me, new()) }
+        };
+    }
+
+    private static ActivityDto Make(int id, string name, DateOnly? date, TimeOnly? start, TimeOnly? end,
+        string? location, decimal? price, UserSummaryDto by, List<UserSummaryDto> voters) =>
+        new ActivityDto
+        {
+            Id = id,
+            TripId = 1,
+            Name = name,
+            Date = date,
+            StartTime = start,
+            EndTime = end,
+            Location = location,
+            PricePerPerson = price,
+            SuggestedBy = by,
+            VoteCount = voters.Count,
+            Voters = voters
+        };
+
+    // Fake "API": add or remove me from the voters and update the count
+    private void Toggle(Item item)
+    {
+        var a = item.Activity;
+        if (a.Voters.Any(v => v.Id == me.Id))
+            a.Voters.RemoveAll(v => v.Id == me.Id);
+        else
+            a.Voters.Add(me);
+
+        a.VoteCount = a.Voters.Count;
+    }
+}

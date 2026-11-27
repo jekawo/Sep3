@@ -11,4 +11,8 @@ public class ActivityDto
     public string? Location { get; set; }
     public decimal? PricePerPerson { get; set; }
     public string? Category { get; set; }
+    public UserSummaryDto SuggestedBy { get; set; } = new();
+    public int VoteCount { get; set; }
+    public bool HasCurrentUserVoted { get; set; }
+    public List<UserSummaryDto> Voters { get; set; } = new();
 }
