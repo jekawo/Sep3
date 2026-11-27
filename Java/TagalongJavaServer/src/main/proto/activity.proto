@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package tagalong;
+
+option java_multiple_files = true;
+option java_package = "tagalong.grpc";
+option csharp_namespace = "Tagalong.Grpc";
+
+import "google/protobuf/timestamp.proto";
+import "vote.proto";
+
+service ActivityService {
+  rpc CreateActivity(CreateActivityRequest) returns (Activity);
+  rpc GetActivity(GetActivityRequest) returns (ActivityWithVotes);
+  rpc ListActivities(ListActivitiesRequest) returns (ListActivitiesResponse);
+}
+
+message Activity{
+  int64 id = 1;
+  int64 trip_id = 2;
+  string title = 3;
+  string description = 4;
+  optional double price = 5;
+  string location = 6;
+  string link = 7;
+  int64 created_by = 8;
+  google.protobuf.Timestamp created_at = 9;
+}
+
+message ActivityWithVotes{
+  Activity activity = 1;
+  ActivityVotes votes = 2;
+}
+
+message CreateActivityRequest{
+  int64 requesting_user_id = 1;
+  int64 trip_id = 2;
+  string title = 3;
+  string description = 4;
+  optional double price = 5;
+  string location = 6;
+  string link = 7;
+}
+
+message GetActivityRequest {
+  int64 requesting_user_id = 1;
+  int64 activity_id = 2;
+}
+
+message ListActivitiesRequest {
+  int64 requesting_user_id = 1;
+  int64 trip_id = 2;
+}
+
+message ListActivitiesResponse {
+  repeated ActivityWithVotes activities = 1;
+}

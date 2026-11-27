@@ -1,6 +1,6 @@
 package tagalong.server;
 
-import dk.tagalong.grpc.*;
+import tagalong.grpc.*;
 import tagalong.dao.GreetingDAO;
 import io.grpc.stub.StreamObserver;
 

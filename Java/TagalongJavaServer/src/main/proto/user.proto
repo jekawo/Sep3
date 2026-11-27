@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package tagalong;
+
+option java_multiple_files = true;
+option java_package = "tagalong.grpc";
+option csharp_namespace = "Tagalong.Grpc";
+
+service UserService{
+  rpc CreateUser(CreateUserRequest) returns (User);
+  rpc GetUserById(GetUserByIdRequest) returns (User);
+  rpc GetCredentialsByEmail(GetCredentialsByEmailRequest) returns (UserCredentials);
+}
+
+message User {
+  int64 id = 1;
+  string email = 2;
+  string name = 3;
+}
+
+message UserCredentials{
+  User user = 1;
+  string password_hash = 2;
+}
+
+message CreateUserRequest{
+  string email = 1;
+  string name = 2;
+  string password_hash = 3;
+}
+
+message GetUserByIdRequest {
+  int64 id = 1;
+}
+
+message GetCredentialsByEmailRequest {
+  string email = 1;
+}

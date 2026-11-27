@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package tagalong;
+
+option java_multiple_files = true;
+option java_package = "tagalong.grpc";
+option csharp_namespace = "Tagalong.Grpc";
+
+import "google/protobuf/timestamp.proto";
+import "trip.proto";
+
+service InviteService{
+  rpc CreateInvite(CreateInviteRequest) returns (Invite);
+  rpc AcceptInvite(AcceptInviteRequest) returns (Trip);
+}
+
+message Invite {
+  int64 id = 1;
+  int64 trip_id = 2;
+  string token = 3;
+  google.protobuf.Timestamp expires_at = 4;
+}
+
+message CreateInviteRequest {
+  int64 requesting_user_id = 1;
+  int64 trip_id = 2;
+  int64 valid_days = 3;
+}
+
+message AcceptInviteRequest{
+  int64 user_id = 1;
+  string token = 2;
+}

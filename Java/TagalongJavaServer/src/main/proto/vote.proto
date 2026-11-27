@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package tagalong;
+
+option java_multiple_files = true;
+option java_package = "tagalong.grpc";
+option csharp_namespace = "Tagalong.Grpc";
+
+import "google/protobuf/timestamp.proto";
+
+service VoteService {
+  rpc SetVote(SetVoteRequest) returns (ActivityVotes);
+  rpc RemoveVote(RemoveVoteRequest) returns (ActivityVotes);
+}
+
+enum VoteValue {
+  VOTE_VALUE_UNSPECIFIED = 0;
+  VOTE_VALUE_UP = 1;
+  VOTE_VALUE_DOWN = 2;
+}
+
+message VoteInfo {
+  int64 user_id = 1;
+  string user_name = 2;
+  VoteValue value = 3;
+}
+
+message ActivityVotes {
+  int64 activity_id = 1;
+  int32 upvotes = 2;
+  int32 downvotes = 3;
+  int32 score = 4;
+  repeated VoteInfo votes = 5;
+  VoteValue my_vote = 6;
+}
+
+message SetVoteRequest {
+  int64 user_id = 1;
+  int64 activity_id = 2;
+  VoteValue value = 3;
+}
+
+message RemoveVoteRequest {
+  int64 user_id = 1;
+  int64 activity_id = 2;
+}

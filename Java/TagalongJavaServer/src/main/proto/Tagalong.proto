@@ -1,8 +1,8 @@
 syntax = "proto3";
 
+option java_package = "tagalong.grpc";
 option csharp_namespace = "MyApp.Grpc";
 option java_multiple_files = true;
-option java_package = "dk.tagalong.grpc";
 
 package greet;
 
