@@ -16,6 +16,10 @@ public static class ServiceCollectionExtensions
             client.BaseAddress = ApiBaseAddress);
         services.AddHttpClient<IActivityService, HttpActivityService>(client =>
             client.BaseAddress = ApiBaseAddress);
+        services.AddHttpClient<ITripService, HttpTripService>(client =>
+            client.BaseAddress = ApiBaseAddress);
+        services.AddHttpClient<IInviteService, HttpInviteService>(client =>
+            client.BaseAddress = ApiBaseAddress);
         services.AddScoped<SelectedTripState>();
         return services;
     }

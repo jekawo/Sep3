@@ -32,6 +32,13 @@
     cursor: pointer;
 }
 
+/* Soonest trip while nothing is chosen – a label, not a button */
+.trip-card__select--next {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    cursor: default;
+}
+
 /* "✎ Edit" – top right */
 .trip-card__edit {
     position: absolute;

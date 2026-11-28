@@ -1,3 +1,132 @@
-@* TODO: route "/" is already used by Home.razor - decide which page owns "/" *@
+@page "/trips"
+@using Tagalong.Client.Services
+@using Tagalong.Client.Services.Interfaces
 
-<h1>MyTrips</h1>
+@inject ITripService TripService
+@inject IInviteService InviteService
+@inject SelectedTripState State
+@implements IDisposable
+
+
+<PageTitle>My trips – TagAlong</PageTitle>
+
+<div class="page stack--lg">
+
+    <div class="page-header">
+        <h1>My trips</h1>
+        <a class="btn btn--primary" href="trips/new">+ New trip</a>
+    </div>
+
+    @if (loading)
+    {
+        <p class="empty-state">Loading your trips…</p>
+    }
+    else if (error is not null)
+    {
+        <div class="card card--flat card--warning">
+            <p>@error</p>
+            <button class="btn btn--secondary btn--small" @onclick="LoadAsync">Try again</button>
+        </div>
+    }
+    else
+    {
+        @if (invites.Count > 0)
+        {
+            <section class="stack">
+                <h2>Pending invites (@invites.Count)</h2>
+                <div class="card-grid">
+                    @foreach (var invite in invites)
+                    {
+                        <InviteCard @key="invite.Id" Invite="invite" OnDecline="() => DeclineAsync(invite)" />
+                    }
+                </div>
+            </section>
+        }
+
+        <section class="stack">
+            <h2>Your trips</h2>
+
+            @if (trips.Count == 0)
+            {
+                <div class="card card--flat empty-state">
+                    <p>You don't have any trips yet.</p>
+                    <a class="btn btn--primary" href="trips/new">Plan your first trip</a>
+                </div>
+            }
+            else
+            {
+                <p class="text-small text-muted">
+                    Sorted by date. The soonest trip is used automatically – tap “Select” to choose another.
+                </p>
+
+                <div class="card-grid">
+                    @foreach (var trip in State.OrderForDisplay(trips))
+                    {
+                        <TripCard @key="trip.Id"
+                                  Trip="trip"
+                                  ShowSelect="true" ShowEdit="true" ShowInvite="true"
+                                  IsSelected="@(State.IsManual && trip.Id == State.ManualTripId)"
+                                  IsNextUp="@(!State.IsManual && trip.Id == State.DefaultTripId)"
+                                  OnSelect="() => State.Select(trip.Id)"
+                                  OnUnselect="State.Unselect" />
+                    }
+                </div>
+            }
+        </section>
+    }
+</div>
+
+@code {
+    private List<TripDto> trips = new();
+    private List<InviteDto> invites = new();
+    private bool loading = true;
+    private string? error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        State.OnChange += HandleStateChanged;
+        await LoadAsync();
+    }
+
+    private async Task LoadAsync()
+    {
+        loading = true;
+        error = null;
+        try
+        {
+            // Load both at the same time
+            var tripsTask = TripService.GetMyTripsAsync();
+            var invitesTask = InviteService.GetPendingInvitesAsync();
+            await Task.WhenAll(tripsTask, invitesTask);
+
+            trips = tripsTask.Result;
+            invites = invitesTask.Result;
+            State.UpdateTrips(trips);
+        }
+        catch (Exception)
+        {
+            error = "We couldn't load your trips. Check your connection and try again.";
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+
+    private async Task DeclineAsync(InviteDto invite)
+    {
+        try
+        {
+            await InviteService.DeclineAsync(invite.Id);
+            invites.Remove(invite);
+        }
+        catch (Exception)
+        {
+            error = "We couldn't decline the invite. Try again.";
+        }
+    }
+
+    private void HandleStateChanged() => InvokeAsync(StateHasChanged);
+
+    public void Dispose() => State.OnChange -= HandleStateChanged;
+}

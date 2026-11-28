@@ -1,0 +1,29 @@
+.sidebar__logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    margin-bottom: var(--space-24);
+    text-decoration: none;
+}
+
+.logo-mark {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    box-shadow: var(--shadow-hard);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: var(--text-h2);
+}
+
+.logo-word {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: var(--text-h1);
+    color: var(--color-primary);
+}

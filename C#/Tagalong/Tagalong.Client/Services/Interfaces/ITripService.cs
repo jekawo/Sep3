@@ -1,6 +1,8 @@
+using Tagalong.Contracts.DTOs;
+
 namespace Tagalong.Client.Services.Interfaces;
 
 public interface ITripService
 {
-    // TODO
+    Task<List<TripDto>> GetMyTripsAsync();
 }

@@ -1,1 +1,53 @@
-@* TODO: implement Sidebar *@
+@using Microsoft.AspNetCore.Components.Routing
+@inject SelectedTripState State
+@inject NavigationManager Nav
+@implements IDisposable
+
+<nav class="sidebar" aria-label="Main">
+    <a class="sidebar__logo" href="trips">
+        <span class="logo-mark">t.</span>
+        <span class="logo-word">tagalong</span>
+    </a>
+
+    <a class="sidebar__item@(TripsActive ? " active" : "")"
+       href="trips"
+       aria-current="@(TripsActive ? "page" : null)">
+        <NavIcon Name="trips" />
+        <span>My trips</span>
+    </a>
+
+    <a class="sidebar__item@(ActivitiesActive ? " active" : "")"
+       href="@ActivitiesHref"
+       aria-current="@(ActivitiesActive ? "page" : null)">
+        <NavIcon Name="activities" />
+        <span>Activities</span>
+    </a>
+</nav>
+
+@code {
+    private NavSection Section => NavSections.Get(Nav.ToBaseRelativePath(Nav.Uri));
+
+    private bool TripsActive => Section == NavSection.Trips;
+
+    // Never active without a trip – there is no activities page to be on.
+    private bool ActivitiesActive => State.SelectedTripId is not null && Section == NavSection.Activities;
+
+    // Falls back to My trips until a trip is known.
+    private string ActivitiesHref =>
+        State.SelectedTripId is int id ? $"trips/{id}/activities" : "trips";
+
+    protected override void OnInitialized()
+    {
+        State.OnChange += HandleChange;
+        Nav.LocationChanged += HandleLocationChanged;
+    }
+
+    private void HandleChange() => InvokeAsync(StateHasChanged);
+    private void HandleLocationChanged(object? sender, LocationChangedEventArgs e) => InvokeAsync(StateHasChanged);
+
+    public void Dispose()
+    {
+        State.OnChange -= HandleChange;
+        Nav.LocationChanged -= HandleLocationChanged;
+    }
+}
